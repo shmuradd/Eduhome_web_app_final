@@ -8,6 +8,6 @@ public class BlogsController {
     @GetMapping("/blogs")
     public String index()
     {
-        return "blogs";
+        return "blog/blogs";
     }
 }

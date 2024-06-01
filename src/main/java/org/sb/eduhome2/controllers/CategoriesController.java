@@ -1,2 +1,4 @@
-package org.sb.eduhome2.controllers;public class CategoriesController {
+package org.sb.eduhome2.controllers;
+
+public class CategoriesController {
 }

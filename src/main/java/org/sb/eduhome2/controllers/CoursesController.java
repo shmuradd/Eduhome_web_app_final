@@ -8,14 +8,14 @@ public class CoursesController {
     @GetMapping("/courses")
     public String index()
     {
-        return "courses";
+        return "course/courses";
     }
 
 
     @GetMapping("/courses/detail")
     public String detail()
     {
-        return "courseDetail";
+        return "course/courseDetail";
     }
 
 

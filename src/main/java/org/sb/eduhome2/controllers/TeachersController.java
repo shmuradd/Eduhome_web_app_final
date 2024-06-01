@@ -8,7 +8,7 @@ public class TeachersController {
     @GetMapping("/teachers")
     public String index()
     {
-        return "teachers";
+        return "teacher/teachers";
     }
 
 }

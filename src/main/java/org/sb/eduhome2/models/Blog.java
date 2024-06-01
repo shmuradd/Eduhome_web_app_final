@@ -7,7 +7,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -24,5 +27,14 @@ public class Blog {
     private String image;
     @CreationTimestamp
     private LocalDateTime createTime;
-    private String Author;
+    private String author;
+    @Column(nullable = false) // Make isDeleted persistent
+
+    private boolean isDeleted = false;
+
+    @Column(nullable = false)
+    @NotBlank(message = "Təsvir boş saxlanıla bilməz!")
+    private String description;
+
+
 }

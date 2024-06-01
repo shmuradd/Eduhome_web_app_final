@@ -10,6 +10,6 @@ public class ContactsController {
     public String index(Model model)
     {
         model.addAttribute("page","contact");
-        return "contacts";
+        return "contact/contacts";
     }
 }

@@ -8,6 +8,6 @@ public class EventsController {
     @GetMapping("/events")
     public String index()
     {
-        return "events";
+        return "event/events";
     }
 }
