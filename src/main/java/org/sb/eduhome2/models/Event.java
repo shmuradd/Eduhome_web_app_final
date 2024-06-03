@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -29,6 +30,10 @@ public class Event {
 
     private String description;
     private String replyText;
+
+    @ManyToMany(mappedBy = "events")
+    //@JoinTable(name = "event_speakers", joinColumns = @JoinColumn(name = "events", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "speakers",referencedColumnName = "id"))
+    private Set<Speaker> speakers =new HashSet<>();
 
 
 

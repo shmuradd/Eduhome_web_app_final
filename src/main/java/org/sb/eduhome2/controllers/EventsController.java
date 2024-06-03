@@ -4,7 +4,9 @@ import org.sb.eduhome2.dtos.course.CourseDetailDto;
 import org.sb.eduhome2.dtos.course.CourseDto;
 import org.sb.eduhome2.dtos.event.EventDetailDto;
 import org.sb.eduhome2.dtos.event.EventDto;
+import org.sb.eduhome2.models.Speaker;
 import org.sb.eduhome2.services.EventService;
+import org.sb.eduhome2.services.SpeakerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +22,8 @@ public class EventsController {
     @Autowired
     private EventService eventService;
 
+    @Autowired
+    private SpeakerService speakerService;
     @GetMapping("/events")
     public String index(Model model){
     List<EventDto> events= eventService.getEvents();
@@ -33,7 +37,9 @@ public class EventsController {
     public String detail(@PathVariable int id, Model model)
     {
         EventDetailDto eventDetailDto=eventService.eventDetail(id);
+        List<Speaker> speakers=speakerService.getSpeakersByEventId(id);
         model.addAttribute("event", eventDetailDto);
+        model.addAttribute("speakers",speakers);
         return "event/event-detail";
     }
 }

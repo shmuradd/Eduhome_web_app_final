@@ -31,7 +31,8 @@
                 <div th:each="event: ${events}" class="col-md-4 col-sm-6 col-xs-12">
                     <div class="single-event mb-60" style="height: 100%;">
                         <div class="event-img">
-                            <a th:href="@{/event/detail(id=${event.id})}">
+                            <a th:href="@{/events/{id}(id=${event.id})}">
+
                                 <img th:src="'/'+${event.getImage()}" alt="event">
                                 <div class="course-hover">
                                     <i class="fa fa-link"></i>
@@ -42,7 +43,7 @@
                             </div>
                         </div>
                         <div class="event-content text-left">
-                            <h4><a th:href="@{/event/detail(id=${event.id})}" th:text="${event.name}"></a></h4>
+                            <h4><a th:href="@{/events/{id}(id=${event.id})}" th:text="${event.name}"></a></h4>
                             <ul>
                                 <li><span>time:</span> 9.00 AM - 4.45 PM</li>
 
@@ -53,7 +54,7 @@
                                 </li>
                             </ul>
                             <div class="event-content-right">
-                                <a class="default-btn" th:href="@{/event/detail(id=${event.id})}">join now</a>
+                                <a class="default-btn" th:href="@{/events/{id}(id=${event.id})}">join now</a>
                             </div>
                         </div>
                     </div>
