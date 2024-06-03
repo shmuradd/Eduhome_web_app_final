@@ -52,24 +52,8 @@
     </div>
     <!-- Service End -->
     <!-- About Start -->
-    <div class="about-area pb-155">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-sm-6">
-                    <div class="about-content">
-                        <h2 th:utext="${about.getTitle()}" ></h2>
-                        <p th:utext="${about.getSubTitle()}"></p>
-                        <a class="default-btn" th:href="@{/about}">view courses</a>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-6">
-                    <div class="about-img">
-                        <img th:src="'/'+ ${about.getImagePath()}" alt="about">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div th:insert="~{fragments/about.html}"></div>
+
     <!-- About End -->
     <!-- Courses Area Start -->
     <div class="courses-area two pt-150 pb-150 text-center">
@@ -105,55 +89,7 @@
     </div>
     <!-- Courses Area End -->
     <!-- Notice Start -->
-    <section class="notice-area two pt-140">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="notice-right-wrapper mb-25 pb-25">
-                        <h3>TAKE A VIDEO TOUR</h3>
-                        <div class="notice-video">
-                            <div class="video-icon video-hover">
-                                <a class="video-popup" href="https://www.youtube.com/watch?v=to6Ghf8UL7o">
-                                    <i class="zmdi zmdi-play"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                    <div class="notice-left-wrapper">
-                        <h3>notice board</h3>
-                        <div class="notice-left">
-                            <div class="single-notice-left mb-23 pb-20">
-                                <h4>5, June 2017</h4>
-                                <p>I must explain to you how all this mistaken idea of denouncing plasure and praising pain was born and I will give you a complete </p>
-                            </div>
-                            <div class="single-notice-left hidden-sm mb-23 pb-20">
-                                <h4>4, June 2017</h4>
-                                <p>I must explain to you how all this mistaken idea of denouncing plasure and praising pain was born and I will give you a complete </p>
-                            </div>
-                            <div class="single-notice-left pb-70">
-                                <h4>3, June 2017</h4>
-                                <p>I must explain to you how all this mistaken idea of denouncing plasure and praising pain was born and I will give you a complete </p>
-                            </div>
-                            <div class="single-notice-left mb-23 pb-20">
-                                <h4>5, June 2017</h4>
-                                <p>I must explain to you how all this mistaken idea of denouncing plasure and praising pain was born and I will give you a complete </p>
-                            </div>
-                            <div class="single-notice-left hidden-sm mb-23 pb-20">
-                                <h4>4, June 2017</h4>
-                                <p>I must explain to you how all this mistaken idea of denouncing plasure and praising pain was born and I will give you a complete </p>
-                            </div>
-                            <div class="single-notice-left pb-70">
-                                <h4>3, June 2017</h4>
-                                <p>I must explain to you how all this mistaken idea of denouncing plasure and praising pain was born and I will give you a complete </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div th:insert="~{fragments/notice.html}"></div>
     <!-- Notice End -->
     <!-- Event Area Start -->
     <div class="event-area two text-center pt-100 pb-145">
@@ -194,28 +130,7 @@
     </div>
     <!-- Event Area End -->
     <!-- Testimonial Area Start -->
-    <div class="testimonial-area pt-110 pb-105 text-center">
-        <div class="container">
-            <div class="row">
-                <div class="testimonial-owl owl-theme owl-carousel">
-                    <div th:each="comment : ${studentComments}" class="col-md-8 col-md-offset-2 col-sm-12">
-                        <div class="single-testimonial">
-                            <div class="testimonial-info">
-                                <div class="testimonial-img">
-                                    <img th:src="'/' + ${comment.getImage()}" alt="testimonial">
-                                </div>
-                                <div class="testimonial-content">
-                                    <p th:text="${comment.getComment()}"></p>
-                                    <h4 th:text="${comment.getFullName()}"></h4>
-                                    <h5 th:text="${comment.getPosition()} + ', ' + ${comment.getClas()}"></h5>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <div th:insert="~{fragments/studentComment.html}"></div>
     <!-- Testimonial Area End -->
     <!-- Blog Area Start -->
     <div class="blog-area pt-150 pb-150">

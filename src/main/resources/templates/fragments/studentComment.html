@@ -1,10 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<!-- Testimonial Area Start -->
+<div class="testimonial-area pt-110 pb-105 text-center">
+    <div class="container">
+        <div class="row">
+            <div class="testimonial-owl owl-theme owl-carousel">
+                <div th:each="comment : ${studentComments}" class="col-md-8 col-md-offset-2 col-sm-12">
+                    <div class="single-testimonial">
+                        <div class="testimonial-info">
+                            <div class="testimonial-img">
+                                <img th:src="'/' + ${comment.getImage()}" alt="testimonial">
+                            </div>
+                            <div class="testimonial-content">
+                                <p th:text="${comment.getComment()}"></p>
+                                <h4 th:text="${comment.getFullName()}"></h4>
+                                <h5 th:text="${comment.getPosition()} + ', ' + ${comment.getClas()}"></h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Testimonial Area End -->
