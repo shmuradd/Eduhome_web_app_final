@@ -35,6 +35,7 @@ public class Blog {
     @Column(nullable = false)
     @NotBlank(message = "Təsvir boş saxlanıla bilməz!")
     private String description;
-
+    @Column(name = "comments_count", nullable = false, columnDefinition = "integer default 0")
+    private int commentsCount;
 
 }

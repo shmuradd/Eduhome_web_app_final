@@ -1,8 +1,6 @@
-package org.sb.eduhome2.dtos;
+package org.sb.eduhome2.dtos.course;
 
 import lombok.Data;
-
-import java.util.Date;
 
 @Data
 public class CourseDto {

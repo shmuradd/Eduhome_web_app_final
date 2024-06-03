@@ -29,6 +29,7 @@ public class Course {
     private String certificationDescription;
     private LocalDate startDate;
     private String durationTime;
+    private String classDuration;
     private String skillLevel;
     private String language;
     private int studentCapacity;

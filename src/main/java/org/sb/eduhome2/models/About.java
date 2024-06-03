@@ -17,6 +17,8 @@ public class About {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
+    @Column(name = "subTitle",length = 1000)
+
     private String subTitle;
     private String imagePath;
 

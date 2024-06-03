@@ -13,7 +13,7 @@
         <div class="slider-owl owl-theme owl-carousel">
             <!-- Start Slingle Slide -->
             <div th:each="slider:${sliders}" class="single-slide item"
-                 th:style="'background-image: url(' + ${'/img/slider/' + slider.getImage()} + ')'">
+                 th:style="'background-image: url(' + ${slider.getImage()} + ')'">
                 <!-- Start Slider Content -->
                 <div class="slider-content-area">
                     <div class="container">
@@ -22,8 +22,8 @@
                                 <div class="slide-content-wrapper">
                                     <div class="slide-content text-center">
                                         <h2 th:text="${slider.getTitle()}"></h2>
-                                        <p th:text="${slider.getSubtitle()}">/p>
-                                        <a class="default-btn" href="about/about.html">Learn more</a>
+                                        <p th:text="${slider.getSubtitle()}"></p>
+                                        <a class="default-btn" th:href="@{/about}">Learn more</a>
                                     </div>
                                 </div>
                             </div>
@@ -32,49 +32,7 @@
                 </div>
                 <!-- Start Slider Content -->
             </div>
-            <!-- End Slingle Slide -->
-            <!-- Start Slingle Slide -->
-            <div class="single-slide item" style="background-image: url(img/slider/slider3.jpg)">
-                <!-- Start Slider Content -->
-                <div class="slider-content-area">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-10 col-md-offset-1">
-                                <div class="slide-content-wrapper">
-                                    <div class="slide-content text-center">
-                                        <h2>EDUCATION MAKES HUMANITY </h2>
-                                        <p>I must explain to you how all this mistaken idea of denouncing pleasure and prsing pain was born and I will give you a complete account of the system  </p>
-                                        <a class="default-btn" href="about/about.html">Learn more</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Start Slider Content -->
-            </div>
-            <!-- End Slingle Slide -->
-            <!-- Start Slingle Slide -->
-            <div class="single-slide item" style="background-image: url(img/slider/slider1.jpg)">
-                <!-- Start Slider Content -->
-                <div class="slider-content-area">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-10 col-md-offset-1">
-                                <div class="slide-content-wrapper">
-                                    <div class="slide-content text-center">
-                                        <h2>EDUCATION MAKES HUMANITY </h2>
-                                        <p>I must explain to you how all this mistaken idea of denouncing pleasure and prsing pain was born and I will give you a complete account of the system  </p>
-                                        <a class="default-btn" href="about/about.html">Learn more</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Start Slider Content -->
-            </div>
-            <!-- End Slingle Slide -->
+
         </div>
     </section>
     <!-- Background Area End -->
@@ -99,15 +57,14 @@
             <div class="row">
                 <div class="col-md-6 col-sm-6">
                     <div class="about-content">
-                        <h2>WELCOME TO <span>EDUHOME</span></h2>
-                        <p>I must explain to you how all this mistaken idea of denouncing pleure and prsing pain was born and I will give you a complete account of the system, and expound the actual teachings  the master-builder of humanit happiness</p>
-                        <p class="hidden-sm">I must explain to you how all this mistaken idea of denouncing pleure and prsing pain was born and I will give you a complete account of the system</p>
-                        <a class="default-btn" href="about/about.html">view courses</a>
+                        <h2 th:utext="${about.getTitle()}" ></h2>
+                        <p th:utext="${about.getSubTitle()}"></p>
+                        <a class="default-btn" th:href="@{/about}">view courses</a>
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6">
                     <div class="about-img">
-                        <img src="img/about/about.png" alt="about">
+                        <img th:src="'/'+ ${about.getImagePath()}" alt="about">
                     </div>
                 </div>
             </div>
@@ -125,55 +82,24 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-4 col-sm-6 col-xs-12">
+            <div  class="row">
+                <div th:each="course : ${courses}" class="col-md-4 col-sm-6 col-xs-12">
                     <div class="single-course">
                         <div class="course-img">
-                            <a href="course-details.html"><img src="img/course/course1.jpg" alt="course">
+                            <a th:href="@{/courses/{id}(id=${course.id})}"><img th:src="${course.getImage()}" alt="course">
                                 <div class="course-hover">
                                     <i class="fa fa-link"></i>
                                 </div>
                             </a>
                         </div>
                         <div class="course-content">
-                            <h3><a href="course-details.html">CSE ENGINEERING</a></h3>
-                            <p>I must explain to you how all this a mistaken idea of denouncing great explorer of the rut the is lder of human happiness</p>
-                            <a class="default-btn" href="course-details.html">read more</a>
+                            <h3><a th:href="@{/courses/{id}(id=${course.id})}" th:text="${course.getName()}"></a></h3>
+                            <p th:text="${course.getDescription()}"></p>
+                            <a class="default-btn" th:href="@{/courses/{id}(id=${course.id})}">read more</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="single-course">
-                        <div class="course-img">
-                            <a href="course-details.html"><img src="img/course/course2.jpg" alt="course">
-                                <div class="course-hover">
-                                    <i class="fa fa-link"></i>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="course-content">
-                            <h3><a href="course-details.html">political science</a></h3>
-                            <p>I must explain to you how all this a mistaken idea of denouncing great explorer of the rut the is lder of human happiness</p>
-                            <a class="default-btn" href="course-details.html">read more</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 hidden-sm col-xs-12">
-                    <div class="single-course">
-                        <div class="course-img">
-                            <a href="course-details.html"><img src="img/course/course3.jpg" alt="course">
-                                <div class="course-hover">
-                                    <i class="fa fa-link"></i>
-                                </div>
-                            </a>
-                        </div>
-                        <div class="course-content">
-                            <h3><a href="course-details.html">micro biology</a></h3>
-                            <p>I must explain to you how all this a mistaken idea of denouncing great explorer of the rut the is lder of human happiness</p>
-                            <a class="default-btn" href="course-details.html">read more</a>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>
@@ -240,76 +166,30 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="row" >
+                <div class="col-md-6 col-sm-12 col-xs-12" th:each="event : ${events}">
                     <div class="single-event mb-35">
                         <div class="event-img">
-                            <a href="event-details.html"><img src="img/event/event1.jpg" alt="event"></a>
+                            <a th:href="@{/events/{id}(id=${event.id})}"><img th:src="@{${event.image}}" alt="event"></a>
                         </div>
                         <div class="event-content text-left">
-                            <h3>20 June 2017</h3>
-                            <h4><a href="event-details.html">ADVANCE PHP WORKSHOP</a></h4>
+                            <h3 th:text="${#temporals.format(event.getStartTime(), 'dd MMMM yyyy')}">20 June 2017</h3>
+                            <h4><a th:href="@{/events/{id}(id=${event.id})}" th:text="${event.getName()}">ADVANCE PHP WORKSHOP</a></h4>
                             <ul>
-                                <li><i class="fa fa-clock-o"></i>9.00 AM - 4.45 PM</li>
-                                <li><i class="fa fa-map-marker"></i>New Yourk City</li>
+                                <li><i class="fa fa-clock-o"></i>
+                                    <span th:text="${#temporals.format(event.getStartTime(), 'hh:mm')}">9.00 AM</span> -
+                                    <span th:text="${#temporals.format(event.getEndTime(), 'hh:mm')}">4.45 PM</span>
+                                </li>
+                                <li><i class="fa fa-map-marker"></i><span th:text="${event.getLocation()}"></span></li>
                             </ul>
                             <div class="event-content-right">
-                                <a class="default-btn" href="event-details.html">join now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="single-event hidden-sm hidden-xs">
-                        <div class="event-img">
-                            <a href="event-details.html"><img src="img/event/event3.jpg" alt="event"></a>
-                        </div>
-                        <div class="event-content text-left">
-                            <h3>16 June 2017</h3>
-                            <h4><a href="event-details.html">learning english history</a></h4>
-                            <ul>
-                                <li><i class="fa fa-clock-o"></i>9.00 AM - 4.45 PM</li>
-                                <li><i class="fa fa-map-marker"></i>New Yourk City</li>
-                            </ul>
-                            <div class="event-content-right">
-                                <a class="default-btn" href="event-details.html">join now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6 col-sm-12 col-xs-12">
-                    <div class="single-event mb-35">
-                        <div class="event-img">
-                            <a href="event-details.html"><img src="img/event/event2.jpg" alt="event"></a>
-                        </div>
-                        <div class="event-content text-left">
-                            <h3>18 June 2017</h3>
-                            <h4><a href="event-details.html">DIGITAL MARKETING ANALYSIS</a></h4>
-                            <ul>
-                                <li><i class="fa fa-clock-o"></i>9.00 AM - 4.45 PM</li>
-                                <li><i class="fa fa-map-marker"></i>New Yourk City</li>
-                            </ul>
-                            <div class="event-content-right">
-                                <a class="default-btn" href="event-details.html">join now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="single-event hidden-sm hidden-xs">
-                        <div class="event-img">
-                            <a href="event-details.html"><img src="img/event/event3.jpg" alt="event"></a>
-                        </div>
-                        <div class="event-content text-left">
-                            <h3>14 June 2017</h3>
-                            <h4><a href="event-details.html">UI & UX DESIGNER MEETUP</a></h4>
-                            <ul>
-                                <li><i class="fa fa-clock-o"></i>9.00 AM - 4.45 PM</li>
-                                <li><i class="fa fa-map-marker"></i>New Yourk City</li>
-                            </ul>
-                            <div class="event-content-right">
-                                <a class="default-btn" href="event-details.html">join now</a>
+                                <a class="default-btn" th:href="@{/events/{id}(id=${event.id})}">join now</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
     <!-- Event Area End -->
@@ -318,16 +198,16 @@
         <div class="container">
             <div class="row">
                 <div class="testimonial-owl owl-theme owl-carousel">
-                    <div class="col-md-8 col-md-offset-2 col-sm-12">
+                    <div th:each="comment : ${studentComments}" class="col-md-8 col-md-offset-2 col-sm-12">
                         <div class="single-testimonial">
                             <div class="testimonial-info">
                                 <div class="testimonial-img">
-                                    <img src="img/testimonial/testimonial.jpg" alt="testimonial">
+                                    <img th:src="'/' + ${comment.getImage()}" alt="testimonial">
                                 </div>
                                 <div class="testimonial-content">
-                                    <p>I must explain to you how all this mistaken idea of denoung pleure and praising pain was born and I will give you a coete account of the system, and expound the actual</p>
-                                    <h4>David Morgan</h4>
-                                    <h5>Student, CSE</h5>
+                                    <p th:text="${comment.getComment()}"></p>
+                                    <h4 th:text="${comment.getFullName()}"></h4>
+                                    <h5 th:text="${comment.getPosition()} + ', ' + ${comment.getClas()}"></h5>
                                 </div>
                             </div>
                         </div>
@@ -352,68 +232,31 @@
                 <div th:each="blog: ${blogs}" class="col-md-4 col-sm-6 col-xs-12">
                     <div class="single-blog">
                         <div class="blog-img">
-                            <a href="blog-details.html">
-                                <img th:src="@{'/img/blog/'+${blog.getImage()}}" alt="blog">
+                            <a th:href="@{/blogs/{id}(id=${blog.id})}">
+                                <img th:src="'/'+ ${blog.getImage()}" alt="blog">
                             </a>
                             <div class="blog-hover">
-                                <a href="blog-details.html"><i class="fa fa-link"></i></a>
+                                <a th:href="@{/blogs/{id}(id=${blog.id})}"><i class="fa fa-link"></i></a>
                             </div>
                         </div>
                         <div class="blog-content">
                             <div class="blog-top">
                                 <p>
-                                    <span th:text="${blog.getAuthor()} + ' / ' "></span>
+                                    <span th:text="'By '+${blog.getAuthor()} + ' / ' "></span>
                                     <span th:text="${#temporals.format(blog.getCreateTime(), 'MMMM d, yyyy')} + ' / '"></span>
                                     <i class="fa fa-comments-o"></i>
-                                    4
+
                                 </p>
 
                             </div>
                             <div class="blog-bottom">
-                                <h2><a th:text="${blog.getTitle()}" href="blog-details.html"></a></h2>
-                                <a th:text="${blog.getSubtitle()}" href="blog-details.html"></a>
+                                <h2><a th:text="${blog.getTitle()}" th:href="@{/blogs/{id}(id=${blog.id})}"></a></h2>
+                                <a th:text="${blog.getSubtitle()}" th:href="@{/blogs/{id}(id=${blog.id})}"></a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="single-blog">
-                        <div class="blog-img">
-                            <a href="blog-details.html"><img src="img/blog/blog2.jpg" alt="blog"></a>
-                            <div class="blog-hover">
-                                <a href="blog-details.html"><i class="fa fa-link"></i></a>
-                            </div>
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-top">
-                                <p>By Alex  /  June 20, 2017  /  <i class="fa fa-comments-o"></i> 4</p>
-                            </div>
-                            <div class="blog-bottom">
-                                <h2><a href="blog-details.html">I must explain to you how all this a mistaken idea </a></h2>
-                                <a href="blog-details.html">read more</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4 hidden-sm col-xs-12">
-                    <div class="single-blog">
-                        <div class="blog-img">
-                            <a href="blog-details.html"><img src="img/blog/blog3.jpg" alt="blog"></a>
-                            <div class="blog-hover">
-                                <a href="blog-details.html"><i class="fa fa-link"></i></a>
-                            </div>
-                        </div>
-                        <div class="blog-content">
-                            <div class="blog-top">
-                                <p>By Alex  /  June 20, 2017  /  <i class="fa fa-comments-o"></i> 4</p>
-                            </div>
-                            <div class="blog-bottom">
-                                <h2><a href="blog-details.html">I must explain to you how all this a mistaken idea </a></h2>
-                                <a href="blog-details.html">read more</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
         </div>
     </div>

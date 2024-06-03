@@ -11,4 +11,10 @@ public class TeachersController {
         return "teacher/teachers";
     }
 
+    @GetMapping("/teacher/detail")
+    public String detail()
+    {
+        return "teacher/teacher-detail";
+    }
+
 }
