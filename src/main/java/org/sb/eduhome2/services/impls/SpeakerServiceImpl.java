@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 @Service
 public class SpeakerServiceImpl implements SpeakerService {
     @Autowired
+
     private SpeakerRepository speakerRepository;
 
     @Autowired

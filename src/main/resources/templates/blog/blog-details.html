@@ -39,42 +39,20 @@
             </div>
             <div class="blog-details-content">
               <h2 th:text="${blog.getTitle()}"></h2>
-              <h6>By Alex  /  June 20, 2017  /  <i class="fa fa-comments-o"></i> 4</h6>
 
-              <h6 th:text="'By ' + ${blog.author} + ' / ' + ${#temporals.format(blog.createTime, 'MMMM d, yyyy')} + ' / '">
+              <h6>
+                <span th:text="'By ' + ${blog.author} + ' / ' + ${#temporals.format(blog.createTime, 'MMMM d, yyyy')} + ' / '"></span>
                 <i class="fa fa-comments-o"></i>
                 <span th:text="${blog.getCommentsCount()}">4</span>
               </h6>
+
 
               <p>I must explain to you how all this a mistaken idea of denouncing great explorer of the rut the is lder of human haness pcias unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque sa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam volutatem quia voluptas sit asnatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui </p>
               <p>I must explain to you how all this a mistaken idea of denouncing great explorer of the rut the is lder of human haness pcias unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam</p>
               <p class="quote">I must explain to you how all this a mistaken idea of denouncing great explorer of the rut the is lder of human haness pcias unde omnis iste natus error sit voluptatem accusantium doloremque la udantium, totam rem aperiam</p>
               <p>I must explain to you how all this a mistaken idea of denouncing great explorer of the rut the is lder of human haness pcias unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque sa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo emo enim ipsam</p>
             </div>
-            <div class="reply-area">
-              <h3>LEAVE A REPLY</h3>
-              <p>I must explain to you how all this a mistaken idea of ncing great explorer of the rut<br> the is lder of human happinescias unde omnis iste natus error sit volptatem </p>
-              <form id="contact-form" action="http://demo.devitems.com/eduhome/mail.php" method="post">
-                <div class="row">
-                  <div class="col-md-12">
-                    <p>Name</p>
-                    <input type="text" name="name" id="name">
-                  </div>
-                  <div class="col-md-12">
-                    <p>Email</p>
-                    <input type="text" name="email" id="email">
-                  </div>
-                  <div class="col-md-12">
-                    <p>Subject</p>
-                    <input type="text" name="subject" id="subject">
-                    <p>Massage</p>
-                    <textarea name="message" id="message" cols="15" rows="10"></textarea>
-                  </div>
-                </div>
-                <a class="reply-btn" href="#" data-text="send"><span>send message</span></a>
-                <p class="form-messege"></p>
-              </form>
-            </div>
+            <div th:insert="~{fragments/reply.html}"></div>
           </div>
         </div>
         <div class="col-md-4">
@@ -109,56 +87,26 @@
             </div>
             <div class="single-blog-widget mb-47">
               <h3>latest post</h3>
-              <div class="single-post mb-30">
+              <div th:each="blog:${blogs}" class="single-post mb-30">
                 <div class="single-post-img">
-                  <a href="blog-details.html"><img src="img/post/post1.jpg" alt="post">
+                  <a th:href="@{/blogs/{id}(id=${blog.id})}"><img style="max-width: 100px; max-height: 100px" th:src="'/'+${blog.getImage()}" alt="post">
                     <div class="blog-hover">
                       <i class="fa fa-link"></i>
                     </div>
                   </a>
                 </div>
                 <div class="single-post-content">
-                  <h4><a href="blog-details.html">English Language Course for you</a></h4>
-                  <p>By Alex  /  June 20, 2017</p>
-                </div>
-              </div>
-              <div class="single-post mb-30">
-                <div class="single-post-img">
-                  <a href="blog-details.html"><img src="img/post/post2.jpg" alt="post">
-                    <div class="blog-hover">
-                      <i class="fa fa-link"></i>
-                    </div>
-                  </a>
-                </div>
-                <div class="single-post-content">
-                  <h4><a href="blog-details.html">Advance Web Design and Develop</a></h4>
-                  <p>By Alex  /  June 20, 2017</p>
-                </div>
-              </div>
-              <div class="single-post">
-                <div class="single-post-img">
-                  <a href="blog-details.html"><img src="img/post/post3.jpg" alt="post">
-                    <div class="blog-hover">
-                      <i class="fa fa-link"></i>
-                    </div>
-                  </a>
-                </div>
-                <div class="single-post-content">
-                  <h4><a href="blog-details.html">English Language Course for you</a></h4>
-                  <p>By Alex  /  June 20, 2017</p>
+                  <h4 th:href="${blog.getTitle()}"><a th:href="@{/blogs/{id}(id=${blog.id})}">English Language Course for you</a></h4>
+                  <p>
+                    <span th:text="'By '+${blog.getAuthor()} + ' / ' "></span>
+                    <span th:text="${#temporals.format(blog.getCreateTime(), 'MMMM d, yyyy')} "></span>
+
+                  </p>
                 </div>
               </div>
             </div>
             <div class="single-blog-widget">
-              <h3>tags</h3>
-              <div class="single-tag">
-                <a href="blog-details.html" class="mr-10 mb-10">course</a>
-                <a href="blog-details.html" class="mr-10 mb-10">education</a>
-                <a href="blog-details.html" class="mb-10">teachers</a>
-                <a href="blog-details.html" class="mr-10">learning</a>
-                <a href="blog-details.html" class="mr-10">university</a>
-                <a href="blog-details.html">events</a>
-              </div>
+
             </div>
           </div>
         </div>

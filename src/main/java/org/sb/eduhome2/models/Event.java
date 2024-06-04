@@ -26,6 +26,8 @@ public class Event {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private String location;
+    @Column(nullable = false) // Make isDeleted persistent
+
     private boolean isDeleted;
 
     private String description;

@@ -1,10 +1,12 @@
 package org.sb.eduhome2.controllers;
 
+import org.sb.eduhome2.dtos.blogs.BlogDto;
 import org.sb.eduhome2.dtos.course.CourseDetailDto;
 import org.sb.eduhome2.dtos.course.CourseDto;
 import org.sb.eduhome2.dtos.event.EventDetailDto;
 import org.sb.eduhome2.dtos.event.EventDto;
 import org.sb.eduhome2.models.Speaker;
+import org.sb.eduhome2.services.BlogService;
 import org.sb.eduhome2.services.EventService;
 import org.sb.eduhome2.services.SpeakerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +26,11 @@ public class EventsController {
 
     @Autowired
     private SpeakerService speakerService;
+    @Autowired
+    private BlogService blogService;
+
+
+
     @GetMapping("/events")
     public String index(Model model){
     List<EventDto> events= eventService.getEvents();
@@ -36,10 +43,15 @@ public class EventsController {
     @GetMapping("/events/{id}")
     public String detail(@PathVariable int id, Model model)
     {
+
         EventDetailDto eventDetailDto=eventService.eventDetail(id);
         List<Speaker> speakers=speakerService.getSpeakersByEventId(id);
+        List<BlogDto> blogDto=blogService.getHomeBlogs();
+
         model.addAttribute("event", eventDetailDto);
         model.addAttribute("speakers",speakers);
+        model.addAttribute("blogs",blogDto);
+
         return "event/event-detail";
     }
 }

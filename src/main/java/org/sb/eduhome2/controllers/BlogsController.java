@@ -29,6 +29,9 @@ public class BlogsController {
     @GetMapping("/blogs/{id}")
     public String detail(@PathVariable int id, Model model)
     {
+        List<BlogDto> blogDto=blogService.getHomeBlogs();
+        model.addAttribute("blogs",blogDto);
+
         BlogDetailDto blogDetailDto=blogService.blogDetail(id);
         model.addAttribute("blog", blogDetailDto);
         return "blog/blog-details";

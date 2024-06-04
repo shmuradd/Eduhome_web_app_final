@@ -1,7 +1,9 @@
 package org.sb.eduhome2.controllers;
 
+import org.sb.eduhome2.dtos.blogs.BlogDto;
 import org.sb.eduhome2.dtos.course.CourseDetailDto;
 import org.sb.eduhome2.dtos.course.CourseDto;
+import org.sb.eduhome2.services.BlogService;
 import org.sb.eduhome2.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +18,8 @@ public class CoursesController {
 
     @Autowired
     private CourseService courseService;
+    @Autowired
+    private BlogService blogService;
 
 
     @GetMapping("/courses")
@@ -30,8 +34,11 @@ public class CoursesController {
     @GetMapping("/courses/{id}")
     public String detail(@PathVariable int id, Model model)
     {
+        List<BlogDto> blogDto=blogService.getHomeBlogs();
         CourseDetailDto courseDetailDto=courseService.courseDetail(id);
         model.addAttribute("course", courseDetailDto);
+        model.addAttribute("blogs",blogDto);
+
         return "course/course-detail";
     }
 
