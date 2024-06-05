@@ -14,8 +14,6 @@ public class TeacherDto {
     private String image;
     private String job;
     private String facebookUrl;
-    private String twitterUrl;
-    private String pinterestUrl;
-    private String vkontaktUrl;
+
 
 }

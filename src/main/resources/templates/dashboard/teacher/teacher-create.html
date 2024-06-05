@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{dashboard/fragments/layout}">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- plugins:css -->
+
+</head>
+<body>
+
+<main layout:fragment="MainContent">
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo mr-5" th:href="@{/admin}"><img src="/src/img/logo.png" class="mr-2" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" th:href="@{/admin}"><img src="/src/img/logo.png" alt="logo" /></a>
+            </div>
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_settings-panel.html -->
+            <!-- partial -->
+            <!-- partial:partials/_sidebar.html -->
+            <div th:insert="~{dashboard/fragments/sidebar.html}">
+
+            </div>
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="row">
+                        <div class="col-md-6 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Təlimçi yarat</h4>
+                                    <form th:action="@{/admin/teachers/create}"
+                                          method="post" class="forms-sample" enctype="multipart/form-data">
+
+
+                                        <div class="form-group">
+                                                <label>Image URL</label>
+                                                <input class="form-control" type="text" id="imageUrl" name="imageUrl">
+                                                <small class="form-text text-muted">Provide a direct URL to the image (optional).</small>
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <input class="form-control" type="text" data-val="true" data-val-required="Bu xana bo&#x15F; ola bilm&#x259;z" id="name" name="name" value="">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="name" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Surname</label>
+                                            <input class="form-control" type="text" data-val="true" data-val-required="Bu xana bo&#x15F; ola bilm&#x259;z" id="surname" name="surname" value="">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="surname" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Job</label>
+                                            <input class="form-control" type="text" data-val="true" data-val-required="Bu xana bo&#x15F; ola bilm&#x259;z" id="job" name="job" value="">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="job" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Facebook URL</label>
+                                            <input class="form-control" type="url" id="facebookUrl" name="facebookUrl" value="">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="facebookUrl" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Is Active</label>
+                                            <input class="form-control" type="checkbox" id="isDeleted" name="isDeleted" value="">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="isDeleted" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Communication Point</label>
+                                            <input class="form-control" type="number" id="communicationPoint" name="communicationPoint" value="">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="communicationPoint" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Development Point</label>
+                                            <input class="form-control" type="number" id="developmentPoint" name="developmentPoint" value="">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="developmentPoint" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Innovation Point</label>
+                                            <input class="form-control" type="number" id="innovationPoint" name="innovationPoint" value="">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="innovationPoint" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Design Point</label>
+                                            <input class="form-control" type="number" id="designPoint" name="designPoint" value="">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="designPoint" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Team Leader Point</label>
+                                            <input class="form-control" type="number" id="teamLeaderPoint" name="teamLeaderPoint" value="">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="teamLeaderPoint" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Language Point</label>
+                                            <input class="form-control" type="number" id="languagePoint" name="languagePoint" value="">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="languagePoint" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Phone Numbers</label>
+                                            <input class="form-control" type="text" data-val="true" data-val-required="Boş saxlanıla Bilməz!" id="phoneNumbers" name="phoneNumbers" value="">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="phoneNumbers" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Email</label>
+                                            <input class="form-control" type="email" data-val="true" data-val-required="Boş saxlanıla Bilməz!" data-val-email="Düzgün E-poçt ünvanı daxil etdiyinizdən əmin olun!" id="email" name="email" value="">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="email" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Hobbies</label>
+                                            <input class="form-control" type="text" data-val="true" data-val-required="Boş saxlanıla Bilməz!" id="hobbies" name="hobbies" value="">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="hobbies" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Experience</label>
+                                            <input class="form-control" type="text" data-val="true" data-val-required="Boş saxlanıla Bilməz!" id="experience" name="experience" value="">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="experience" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Degree</label>
+                                            <input class="form-control" type="text" data-val="true" data-val-required="Boş saxlanıla Bilməz!" id="degree" name="degree" value="">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="degree" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>About Teacher</label>
+                                            <textarea class="form-control" data-val="true" data-val-required="Boş saxlanıla Bilməz!" data-val-maxlength="Max 150 simvol istifadə edilə bilər!" id="aboutTeacher" name="aboutTeacher" maxlength="150"></textarea>
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="aboutTeacher" data-valmsg-replace="true"></span>
+                                        </div>
+                                        <input type="submit" value="Create" class="btn btn-success" />
+                                        <a class="btn btn-light" th:href="@{/admin/teachers}">Geri Dön</a>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- content-wrapper ends -->
+                <!-- partial:partials/_footer.html -->
+                <footer class="footer">
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023.  by <a href="h//wa.me/994993401010" target="_blank">JrC</a>  All rights reserved.</span>
+
+                    </div>
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                    </div>
+                </footer>
+                <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+
+</main>
+
+</body>
+
+</html>
+

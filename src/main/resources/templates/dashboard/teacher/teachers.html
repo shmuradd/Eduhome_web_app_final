@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{dashboard/fragments/layout}">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Skydash Admin</title>
+    <!-- plugins:css -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f9;
+        }
+        .table-responsive {
+            margin-top: 20px;
+        }
+        .table-bordered {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .table-bordered th, .table-bordered td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .table-bordered th {
+            background-color: #f2f2f2;
+        }
+        .btn {
+            display: inline-block;
+            padding: 6px 12px;
+            margin: 5px 0;
+            font-size: 14px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #3498db;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #2980b9;
+        }
+        .btn.update {
+            background-color: #f39c12;
+        }
+        .btn.update:hover {
+            background-color: #e67e22;
+        }
+        .btn.activate {
+            background-color: #2ecc71;
+        }
+        .btn.activate:hover {
+            background-color: #27ae60;
+        }
+        .btn.deactivate {
+            background-color: #e74c3c;
+        }
+        .btn.deactivate:hover {
+            background-color: #c0392b;
+        }
+
+    </style>
+</head>
+
+<body>
+<main layout:fragment="MainContent">
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo mr-5" href="/Brains"><img src="/src/img/logo.png" class="mr-2" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href="/Brains"><img src="/src/img/logo.png" alt="logo" /></a>
+            </div>
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_settings-panel.html -->
+            <!-- partial -->
+            <!-- partial:partials/_sidebar.html -->
+            <div th:insert="~{dashboard/fragments/sidebar.html}"></div>
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+
+
+                    <div class="row">
+                        <div class="col-lg-12 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between">
+                                        <h4 class="card-title">Təlimçilər</h4>
+                                        <div>
+                                            <a class="btn btn-primary" th:href="@{/admin/teachers/create}">Yeni Təlimçi yarat</a>
+                                        </div>
+                                    </div>
+                                    <div class="table-responsive pt-3">
+                                        <table class="table table-bordered">
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Actions</th>
+                                                <th>Name</th>
+                                                <th>Surname</th>
+                                                <th>Image</th>
+                                                <th>Job</th>
+                                                <th>Facebook URL</th>
+                                                <th>Is Deleted</th>
+                                                <th>Communication Point</th>
+                                                <th>Development Point</th>
+                                                <th>Innovation Point</th>
+                                                <th>Design Point</th>
+                                                <th>Team Leader Point</th>
+                                                <th>Language Point</th>
+                                                <th>Phone Numbers</th>
+                                                <th>Email</th>
+                                                <th>Hobbies</th>
+                                                <th>Experience</th>
+                                                <th>Degree</th>
+                                                <th>About Teacher</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="teacher : ${teachers}">
+                                                <td th:text="${teacher.id}"></td>
+                                                <td>
+                                                    <a th:href="@{/admin/teachers/update/{id}(id=${teacher.id})}" class="btn update">Update</a>
+                                                    <a th:href="@{/admin/teachers/activity/{id}(id=${teacher.id})}" th:text="${teacher.isDeleted ? 'Activate' : 'Deactivate'}"
+                                                       th:classappend="${teacher.isDeleted ? 'btn activate' : 'btn deactivate'}">
+
+                                                    </a>
+
+
+
+                                                </td>
+                                                <td th:text="${teacher.name}"></td>
+                                                <td th:text="${teacher.surname}"></td>
+                                                <td>
+                                                    <!-- Check if the image URL starts with "http" indicating it's a web URL -->
+                                                    <img class="teacher-image" th:if="${teacher.image.startsWith('http')}" th:src="${teacher.image}" alt="Teacher Image" style="width: 150px;height: 150px;"/>
+
+                                                    <!-- Check if the image URL starts with "img/" indicating it's a local file path -->
+                                                    <img class="teacher-image" th:if="${!teacher.image.startsWith('http')}" th:src="'/'+${teacher.image}" alt="Teacher Image" style="width: 150px;height: 150px;"/>                                                </td>
+                                                <td th:text="${teacher.job}"></td>
+                                                <td>
+                                                    <a th:href="${teacher.facebookUrl}" th:text="${teacher.facebookUrl}"></a>
+                                                </td>
+                                                <td th:text="${teacher.isDeleted ? 'Yes' : 'No'}"></td>
+                                                <td th:text="${teacher.communicationPoint}"></td>
+                                                <td th:text="${teacher.developmentPoint}"></td>
+                                                <td th:text="${teacher.innovationPoint}"></td>
+                                                <td th:text="${teacher.designPoint}"></td>
+                                                <td th:text="${teacher.teamLeaderPoint}"></td>
+                                                <td th:text="${teacher.languagePoint}"></td>
+                                                <td th:text="${teacher.phoneNumbers}"></td>
+                                                <td th:text="${teacher.email}"></td>
+                                                <td th:text="${teacher.hobbies}"></td>
+                                                <td th:text="${teacher.experience}"></td>
+                                                <td th:text="${teacher.degree}"></td>
+                                                <td th:text="${teacher.aboutTeacher}"></td>
+
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- content-wrapper ends -->
+                <!-- partial:partials/_footer.html -->
+                <footer class="footer">
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023.  by <a href="h//wa.me/994993401010" target="_blank">JrC</a>  All rights reserved.</span>
+
+                    </div>
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                    </div>
+                </footer>
+                <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+    <!-- container-scroller -->
+    <!-- plugins:js -->
+
+</main>
+<th:block layout:fragment="myScript">
+    <script>
+        function remove(id){
+            const swalWithBootstrapButtons = Swal.mixin({
+                customClass: {
+                    confirmButton: "btn btn-success",
+                    cancelButton: "btn btn-danger"
+                },
+                buttonsStyling: false
+            });
+            swalWithBootstrapButtons.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "No, cancel!",
+                reverseButtons: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    swalWithBootstrapButtons.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                    //IMPORTANT
+                    window.location="/admin/article/remove/"+id;
+                } else if (
+                    /* Read more about handling dismissals below */
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire({
+                        title: "Cancelled",
+                        text: "Your imaginary file is safe :)",
+                        icon: "error"
+                    });
+                }
+            });
+        }
+    </script>
+
+</th:block>
+
+</body>
+
+</html>
+

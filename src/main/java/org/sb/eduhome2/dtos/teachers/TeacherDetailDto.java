@@ -15,9 +15,7 @@ public class TeacherDetailDto {
     private String image;
     private String job;
     private String facebookUrl;
-    private String twitterUrl;
-    private String pinterestUrl;
-    private String vkontaktUrl;
+
 
     private int communicationPoint;
 
@@ -30,8 +28,6 @@ public class TeacherDetailDto {
     private int teamLeaderPoint;
 
     private int languagePoint;
-
-    private String skypeProfile;
 
     private String phoneNumbers;
 

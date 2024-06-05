@@ -27,11 +27,9 @@ public class Teacher {
     private String image;
     private String job;
     private String facebookUrl;
-    private String twitterUrl;
-    private String pinterestUrl;
-    private String vkontaktUrl;
+
     @Column(nullable = false)
-    private boolean isDeleted;
+    private Boolean isDeleted;
 
     private int communicationPoint;
 
@@ -45,8 +43,6 @@ public class Teacher {
 
     private int languagePoint;
 
-    @NotBlank(message = "Boş saxlanıla Bilməz!")
-    private String skypeProfile;
 
     @NotBlank(message = "Boş saxlanıla Bilməz!")
     private String phoneNumbers;

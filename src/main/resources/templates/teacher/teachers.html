@@ -32,8 +32,8 @@
                 <div th:each="teacher: ${teachers}" class="col-md-3 col-sm-4 col-xs-12">
                     <div class="single-teacher mb-45">
                         <div class="single-teacher-img">
-                            <a th:href="@{/teachers/{id}(id=${teacher.getId()})}">
-                                <img th:src="@{'/' + ${teacher.getImage()}}" alt="teacher">
+                            <a th:href="@{/teachers/{id}(id=${teacher.id})}">
+                                <img th:src="@{'/' + ${teacher.image}}"  width="80" height="80"/>
                             </a>
                         </div>
                         <div class="single-teacher-content text-center">
@@ -41,9 +41,7 @@
                             <h4 th:text="${teacher.getJob()}">Associate Professor</h4>
                             <ul>
                                 <li><a th:href="${teacher.getFacebookUrl()}"><i class="zmdi zmdi-facebook"></i></a></li>
-                                <li><a th:href="${teacher.getPinterestUrl()}"><i class="zmdi zmdi-pinterest"></i></a></li>
-                                <li><a th:href="${teacher.getFacebookUrl()}"><i class="zmdi zmdi-vimeo"></i></a></li>
-                                <li><a th:href="${teacher.getTwitterUrl()}"><i class="zmdi zmdi-twitter"></i></a></li>
+
                             </ul>
                         </div>
                     </div>
