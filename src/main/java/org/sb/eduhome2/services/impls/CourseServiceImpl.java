@@ -1,7 +1,11 @@
 package org.sb.eduhome2.services.impls;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
+import org.sb.eduhome2.dtos.course.CourseCreateDto;
 import org.sb.eduhome2.dtos.course.CourseDetailDto;
 import org.sb.eduhome2.dtos.course.CourseDto;
+import org.sb.eduhome2.dtos.course.CourseUpdateDto;
 import org.sb.eduhome2.models.Course;
 import org.sb.eduhome2.repositories.CourseRepository;
 import org.sb.eduhome2.services.CourseService;
@@ -46,5 +50,80 @@ public class CourseServiceImpl implements CourseService {
         Course course = courseRepository.findById(id).orElse(null);
         CourseDetailDto courseDetailDto = modelMapper.map(course,CourseDetailDto.class);
         return courseDetailDto;
+    }
+
+    @Override
+    public void addCourse(CourseCreateDto courseCreateDto) {
+        try {
+            Course course = new Course();
+            course.setName(courseCreateDto.getName());
+            course.setDescription(courseCreateDto.getDescription());
+            course.setImage(courseCreateDto.getImage());
+            course.setApplyDescription(courseCreateDto.getApplyDescription());
+            course.setCertificationDescription(courseCreateDto.getCertificationDescription());
+            course.setStartDate(courseCreateDto.getStartDate());
+            course.setDurationTime(courseCreateDto.getDurationTime());
+            course.setClassDuration(courseCreateDto.getClassDuration());
+            course.setSkillLevel(courseCreateDto.getSkillLevel());
+            course.setLanguage(courseCreateDto.getLanguage());
+            course.setStudentCapacity(courseCreateDto.getStudentCapacity());
+            course.setAssessments(courseCreateDto.getAssessments());
+            course.setPrice(courseCreateDto.getPrice());
+            // Add any additional fields here if needed
+
+            courseRepository.save(course);
+
+        } catch (Exception e) {
+            throw new RuntimeException(e.getMessage());
+        }
+    }
+
+
+    @Override
+    public CourseUpdateDto findUpdateCourse(int id) {
+        Course course = courseRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Course not found with id " + id));
+        return modelMapper.map(course, CourseUpdateDto.class);
+    }
+
+    @Override
+    @Transactional
+    public void updateCourse(int id, CourseUpdateDto courseUpdateDto) {
+        Course findCourse = courseRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Course not found with id " + id));
+
+        findCourse.setName(courseUpdateDto.getName());
+        findCourse.setDescription(courseUpdateDto.getDescription());
+        findCourse.setImage(courseUpdateDto.getImage());
+        findCourse.setApplyDescription(courseUpdateDto.getApplyDescription());
+        findCourse.setCertificationDescription(courseUpdateDto.getCertificationDescription());
+        findCourse.setStartDate(courseUpdateDto.getStartDate());
+        findCourse.setDurationTime(courseUpdateDto.getDurationTime());
+        findCourse.setClassDuration(courseUpdateDto.getClassDuration());
+        findCourse.setSkillLevel(courseUpdateDto.getSkillLevel());
+        findCourse.setLanguage(courseUpdateDto.getLanguage());
+        findCourse.setStudentCapacity(courseUpdateDto.getStudentCapacity());
+        findCourse.setAssessments(courseUpdateDto.getAssessments());
+        findCourse.setPrice(courseUpdateDto.getPrice());
+
+        // Save the updated course entity
+        courseRepository.saveAndFlush(findCourse);
+    }
+
+    @Override
+    @Transactional
+    public void removeCourse(int courseId) {
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new EntityNotFoundException("Course not found with id " + courseId));
+        course.setDeleted(true);
+        courseRepository.flush();
+    }
+
+    @Override
+    @Transactional
+    public void activityCourse(int courseId) {
+        Course course = courseRepository.findById(courseId)
+                .orElseThrow(() -> new EntityNotFoundException("Course not found with id " + courseId));
+        course.setDeleted(!course.isDeleted()); // Toggle the deleted status
+        courseRepository.flush();
     }
 }

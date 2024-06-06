@@ -1,10 +1,154 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{dashboard/fragments/layout}">
+
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Skydash Admin</title>
+    <!-- plugins:css -->
+
 </head>
 <body>
-$END$
+<main layout:fragment="MainContent">
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo mr-5" th:href="@{/admin}"><img src="/src/img/logo.png" class="mr-2" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" th:href="@{/admin}"><img src="/src/img/logo.png" alt="logo" /></a>
+            </div>
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_settings-panel.html -->
+            <!-- partial -->
+            <!-- partial:partials/_sidebar.html -->
+            <div th:insert="~{dashboard/fragments/sidebar.html}"></div>
+            <!-- partial -->
+
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="row">
+                        <div class="col-md-6 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Update Course</h4>
+                                    <form method="post" class="forms-sample" enctype="multipart/form-data" th:action="@{/admin/courses/update/{id}(id=${course.id})}">
+
+                                        <div class="form-group">
+                                            <label>Image URL</label>
+                                            <input class="form-control" type="text" id="image" name="image" th:value="${course.image}">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="image" data-valmsg-replace="true"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Name</label>
+                                            <input class="form-control" type="text" data-val="true" data-val-required="This field cannot be empty" id="name" name="name" th:value="${course.name}">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="name" data-valmsg-replace="true"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <textarea class="form-control" data-val="true" data-val-required="This field cannot be empty" id="description" name="description" th:text="${course.description}"></textarea>
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="description" data-valmsg-replace="true"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Apply Description</label>
+                                            <textarea class="form-control" data-val="true" data-val-required="This field cannot be empty" id="applyDescription" name="applyDescription" th:text="${course.applyDescription}"></textarea>
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="applyDescription" data-valmsg-replace="true"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Certification Description</label>
+                                            <textarea class="form-control" data-val="true" data-val-required="This field cannot be empty" id="certificationDescription" name="certificationDescription" th:text="${course.certificationDescription}"></textarea>
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="certificationDescription" data-valmsg-replace="true"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Start Date</label>
+                                            <input class="form-control" type="date" data-val="true" data-val-required="This field cannot be empty" id="startDate" name="startDate" th:value="${course.startDate}">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="startDate" data-valmsg-replace="true"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Duration Time</label>
+                                            <input class="form-control" type="text" data-val="true" data-val-required="This field cannot be empty" id="durationTime" name="durationTime" th:value="${course.durationTime}">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="durationTime" data-valmsg-replace="true"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Class Duration</label>
+                                            <input class="form-control" type="text" data-val="true" data-val-required="This field cannot be empty" id="classDuration" name="classDuration" th:value="${course.classDuration}">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="classDuration" data-valmsg-replace="true"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Skill Level</label>
+                                            <input class="form-control" type="text" data-val="true" data-val-required="This field cannot be empty" id="skillLevel" name="skillLevel" th:value="${course.skillLevel}">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="skillLevel" data-valmsg-replace="true"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Language</label>
+                                            <input class="form-control" type="text" data-val="true" data-val-required="This field cannot be empty" id="language" name="language" th:value="${course.language}">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="language" data-valmsg-replace="true"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Student Capacity</label>
+                                            <input class="form-control" type="number" data-val="true" data-val-required="This field cannot be empty" id="studentCapacity" name="studentCapacity" th:value="${course.studentCapacity}">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="studentCapacity" data-valmsg-replace="true"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Assessments</label>
+                                            <textarea class="form-control" data-val="true" data-val-required="This field cannot be empty" id="assessments" name="assessments" th:text="${course.assessments}"></textarea>
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="assessments" data-valmsg-replace="true"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Price</label>
+                                            <input class="form-control" type="number" step="0.01" data-val="true" data-val-required="This field cannot be empty" id="price" name="price" th:value="${course.price}">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="price" data-valmsg-replace="true"></span>
+                                        </div>
+
+
+
+                                        <button type="submit" class="btn btn-primary mr-2">Update</button>
+                                        <a class="btn btn-light" th:href="@{/admin/courses}">Cancel</a>
+                                        <input name="__RequestVerificationToken" type="hidden" value="{{token}}" />
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- content-wrapper ends -->
+                <!-- partial:partials/_footer.html -->
+                <footer class="footer">
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023.  by <a href="h//wa.me/994993401010" target="_blank">JrC</a>  All rights reserved.</span>
+                    </div>
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                    </div>
+                </footer>
+                <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+
+</main>
+
+
+
 </body>
+
 </html>
+

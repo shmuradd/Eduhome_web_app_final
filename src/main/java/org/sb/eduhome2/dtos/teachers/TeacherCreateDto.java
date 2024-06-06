@@ -2,6 +2,7 @@ package org.sb.eduhome2.dtos.teachers;
 
 import jakarta.persistence.Column;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -16,17 +17,17 @@ public class TeacherCreateDto {
     private String facebookUrl;
 
 
-    private int communicationPoint;
+    private Integer communicationPoint;
 
-    private int developmentPoint;
+    private Integer developmentPoint;
 
-    private int innovationPoint;
+    private Integer innovationPoint;
 
-    private int designPoint;
+    private Integer designPoint;
 
-    private int teamLeaderPoint;
+    private Integer teamLeaderPoint;
 
-    private int languagePoint;
+    private Integer languagePoint;
 
 
     private String phoneNumbers;

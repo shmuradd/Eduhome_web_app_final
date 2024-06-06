@@ -38,9 +38,12 @@
                                 <div class="card-body">
                                     <h4 class="card-title">Update Teacher</h4>
                                     <form  method="post" class="forms-sample" enctype="multipart/form-data" th:action="@{/admin/teachers/update/{id}(id=${teacher.id})}">
+
+
+
                                         <div class="form-group">
                                             <label>Photo</label>
-                                            <input accept="image/*" class="form-control" type="file" id="image" name="image" th:value="${teacher.image}">
+                                            <input class="form-control" type="text" id="image" name="image" th:value="${teacher.image}">
                                             <span class="text-danger field-validation-valid" data-valmsg-for="image" data-valmsg-replace="true"></span>
                                         </div>
                                         <div class="form-group">

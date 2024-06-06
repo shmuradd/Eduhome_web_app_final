@@ -52,7 +52,19 @@
 <script th:src="@{/admin/js/Chart.roundedBarCharts.js}"></script>
 <script th:block="myScript"></script>
 <th:block layout:fragment="myScript"></th:block>
-
+<script>
+    document.getElementById('uploadType').addEventListener('change', function() {
+        var uploadSection = document.getElementById('uploadSection');
+        var urlSection = document.getElementById('urlSection');
+        if (this.value === 'upload') {
+            uploadSection.style.display = 'block';
+            urlSection.style.display = 'none';
+        } else {
+            uploadSection.style.display = 'none';
+            urlSection.style.display = 'block';
+        }
+    });
+</script>
 <!-- End custom js for this page-->
 </body>
 

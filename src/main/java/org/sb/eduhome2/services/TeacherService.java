@@ -6,7 +6,9 @@ import org.sb.eduhome2.dtos.teachers.TeacherCreateDto;
 import org.sb.eduhome2.dtos.teachers.TeacherDetailDto;
 import org.sb.eduhome2.dtos.teachers.TeacherDto;
 import org.sb.eduhome2.dtos.teachers.TeacherUpdateDto;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface TeacherService {
@@ -19,7 +21,7 @@ public interface TeacherService {
     void addTeacher(TeacherCreateDto teacherCreateDto);
 
     TeacherUpdateDto findUpdateTeacher(int id);
-    public void updateTeacher(TeacherUpdateDto teacherUpdateDto);
+    public void updateTeacher(int id, TeacherUpdateDto teacherUpdateDto);
     public void removeTeacher(int teacherId);
     public void activityTeacher(int teacherId);
 }
