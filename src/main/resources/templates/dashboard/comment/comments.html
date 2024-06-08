@@ -95,9 +95,9 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="d-flex justify-content-between">
-                                        <h4 class="card-title">Events</h4>
+                                        <h4 class="card-title">Comments</h4>
                                         <div>
-                                            <a class="btn btn-primary" th:href="@{/admin/events/create}">Create New Event</a>
+                                            <a class="btn btn-primary" th:href="@{/admin/comments/create}">Create New Comment</a>
                                         </div>
                                     </div>
                                     <div class="table-responsive pt-3">
@@ -106,44 +106,34 @@
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Actions</th>
-                                                <th>Name</th>
-                                                <th>Description</th>
+                                                <th>Full Name</th>
+                                                <th>Comment</th>
+                                                <th>Position</th>
+                                                <th>Class</th>
                                                 <th>Image</th>
-                                                <th>Event Date</th>
-                                                <th>Start Time</th>
-                                                <th>End Time</th>
-                                                <th>Location</th>
-                                                <th>Speakers</th>
-                                                <th>Is Deleted</th>
+                                                <th>Is Active</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr th:each="event : ${events}">
-                                                <td th:text="${event.id}"></td>
+                                            <tr th:each="comment : ${comments}">
+                                                <td th:text="${comment.id}"></td>
                                                 <td>
-                                                    <a th:href="@{/admin/events/update/{id}(id=${event.id})}" class="btn update">Update</a>
-                                                    <a th:href="@{/admin/events/activity/{id}(id=${event.id})}" th:text="${event.isDeleted ? 'Activate' : 'Deactivate'}"
-                                                       th:classappend="${event.isDeleted ? 'btn activate' : 'btn deactivate'}">
+                                                    <a th:href="@{/admin/comments/update/{id}(id=${comment.id})}" class="btn update">Update</a>
+                                                    <a th:href="@{/admin/comments/toggle/{id}(id=${comment.id})}" th:text="${comment.isActive ? 'Deactivate' : 'Activate'}"
+                                                       th:classappend="${comment.isActive ? 'btn deactivate' : 'btn activate'}">
                                                     </a>
                                                 </td>
-                                                <td th:text="${event.name}"></td>
-                                                <td th:text="${event.description}"></td>
+                                                <td th:text="${comment.fullName}"></td>
+                                                <td th:text="${comment.comment}"></td>
+                                                <td th:text="${comment.position}"></td>
+                                                <td th:text="${comment.clas}"></td>
                                                 <td>
-                                                    <img class="event-image" th:if="${event.image.startsWith('http')}" th:src="${event.image}" alt="Event Image" style="width: 150px;height: 150px;"/>
-                                                    <img class="event-image" th:if="${!event.image.startsWith('http')}" th:src="'/'+${event.image}" alt="Event Image" style="width: 150px;height: 150px;"/>
+                                                    <!-- Check if the image URL starts with "http" indicating it's a web URL -->
+                                                    <img class="comment-image" th:if="${comment.image.startsWith('http')}" th:src="${comment.image}" alt="Comment Image" style="width: 150px;height: 150px;"/>
+                                                    <!-- Check if the image URL starts with "img/" indicating it's a local file path -->
+                                                    <img class="comment-image" th:if="${!comment.image.startsWith('http')}" th:src="'/'+${comment.image}" alt="Comment Image" style="width: 150px;height: 150px;"/>
                                                 </td>
-                                                <td th:text="${event.eventDate}"></td>
-                                                <td th:text="${event.startTime}"></td>
-                                                <td th:text="${event.endTime}"></td>
-                                                <td th:text="${event.location}"></td>
-                                                <td>
-                                                    <!-- Her bir konuşmacı için -->
-                                                    <ul>
-                                                        <li th:each="speaker : ${event.speakers}" th:text="${speaker.fullname}"></li>
-                                                    </ul>
-                                                </td>
-
-                                                <td th:text="${event.isDeleted() ? 'Yes' : 'No'}"></td>
+                                                <td th:text="${comment.isActive ? 'Yes' : 'No'}"></td>
                                             </tr>
                                             </tbody>
                                         </table>
@@ -152,7 +142,6 @@
                             </div>
                         </div>
                     </div>
-
 
                 </div>
                 <!-- content-wrapper ends -->

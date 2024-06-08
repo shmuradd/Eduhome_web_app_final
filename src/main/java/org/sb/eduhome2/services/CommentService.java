@@ -1,2 +1,4 @@
-package org.sb.eduhome2.services;public interface CommentService {
+package org.sb.eduhome2.services;
+
+public interface CommentService {
 }

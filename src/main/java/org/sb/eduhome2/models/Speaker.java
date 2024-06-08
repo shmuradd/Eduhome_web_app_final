@@ -44,8 +44,8 @@ public class Speaker {
   //  @JoinTable(name = "event_speakers", joinColumns = @JoinColumn(name = "speakers", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "events",referencedColumnName = "id"))
     @JoinTable(
             name = "event_speakers",
-            joinColumns = { @JoinColumn(name = "speaker_id") },
-            inverseJoinColumns = { @JoinColumn(name = "event_id") }
+            joinColumns = { @JoinColumn(name = "speaker_id", referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "event_id", referencedColumnName = "id") }
     )
     private Set<Event> events =new HashSet<>();
 

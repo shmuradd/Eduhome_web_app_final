@@ -1,0 +1,101 @@
+
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{dashboard/fragments/layout}">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- plugins:css -->
+
+</head>
+<body>
+
+<main layout:fragment="MainContent">
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo mr-5" th:href="@{/admin}"><img src="/src/img/logo.png" class="mr-2" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" th:href="@{/admin}"><img src="/src/img/logo.png" alt="logo" /></a>
+            </div>
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_settings-panel.html -->
+            <!-- partial -->
+            <!-- partial:partials/_sidebar.html -->
+            <div th:insert="~{dashboard/fragments/sidebar.html}">
+
+            </div>
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="row">
+                        <div class="col-md-6 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Yeni Comment yarat</h4>
+                                    <form th:action="@{/admin/comments/create}" method="post" class="forms-sample" enctype="multipart/form-data">
+
+                                        <div class="form-group">
+                                            <label>Full Name</label>
+                                            <input class="form-control" type="text" id="fullName" name="fullName" data-val="true" data-val-required="This field is required" value="">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="fullName" data-valmsg-replace="true"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Comment</label>
+                                            <textarea class="form-control" id="comment" name="comment" data-val="true" data-val-required="This field is required"></textarea>
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="comment" data-valmsg-replace="true"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Position</label>
+                                            <input class="form-control" type="text" id="position" name="position" data-val="true" data-val-required="This field is required" value="">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="position" data-valmsg-replace="true"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Class</label>
+                                            <input class="form-control" type="text" id="clas" name="clas" data-val="true" data-val-required="This field is required" value="">
+                                            <span class="text-danger field-validation-valid" data-valmsg-for="clas" data-valmsg-replace="true"></span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Image URL</label>
+                                            <input class="form-control" type="text" id="image" name="image">
+                                            <small class="form-text text-muted">Provide a direct URL to the image (optional).</small>
+                                        </div>
+
+                                        <input type="submit" value="Create" class="btn btn-success" />
+                                        <a class="btn btn-light" th:href="@{/admin/comments}">Back</a>
+                                    </form>                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- content-wrapper ends -->
+                <!-- partial:partials/_footer.html -->
+                <footer class="footer">
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023.  by <a href="h//wa.me/994993401010" target="_blank">JrC</a>  All rights reserved.</span>
+                    </div>
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                    </div>
+                </footer>
+                <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+
+</main>
+
+</body>
+
+</html>
+

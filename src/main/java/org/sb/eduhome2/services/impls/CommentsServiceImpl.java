@@ -1,2 +1,4 @@
-package org.sb.eduhome2.services.impls;public class CommentsServiceImpl {
+package org.sb.eduhome2.services.impls;
+
+public class CommentsServiceImpl {
 }
