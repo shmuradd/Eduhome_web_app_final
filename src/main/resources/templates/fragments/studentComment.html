@@ -7,7 +7,11 @@
                     <div class="single-testimonial">
                         <div class="testimonial-info">
                             <div class="testimonial-img">
-                                <img th:src="'/' + ${comment.getImage()}" alt="testimonial">
+                                <img th:if="${!comment.image.startsWith('http')}" th:src="'/' + ${comment.getImage()}" alt="testimonial">
+                                <img th:if="${comment.image.startsWith('http')}" th:src="${comment.getImage()}" alt="testimonial">
+
+
+
                             </div>
                             <div class="testimonial-content">
                                 <p th:text="${comment.getComment()}"></p>

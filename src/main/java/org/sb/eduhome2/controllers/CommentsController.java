@@ -5,6 +5,7 @@ import org.sb.eduhome2.dtos.comments.CommentUpdateDto;
 import org.sb.eduhome2.dtos.course.CourseCreateDto;
 import org.sb.eduhome2.models.StudentComments;
 import org.sb.eduhome2.repositories.CommentRepository;
+import org.sb.eduhome2.services.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +21,8 @@ public class CommentsController {
     @Autowired
     private CommentRepository commentRepository;
 
-    @Autowired CommentService commentService;
+    @Autowired
+    private CommentService commentService;
     // Admin panel
     @GetMapping("/admin/comments")
     public String comments(Model model) {
@@ -45,35 +47,27 @@ public class CommentsController {
 
     @GetMapping("/admin/comments/update/{id}")
     public String commentUpdate(@PathVariable int id, Model model) {
-        StudentComments comment = commentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid comment Id:" + id));
-        CommentUpdateDto commentUpdateDto = new CommentUpdateDto();
-        commentUpdateDto.setId(comment.getId());
-        commentUpdateDto.setFullName(comment.getFullName());
-        commentUpdateDto.setComment(comment.getComment());
-        commentUpdateDto.setPosition(comment.getPosition());
-        commentUpdateDto.setClas(comment.getClas());
-        commentUpdateDto.setImage(comment.getImage());
+        CommentUpdateDto commentUpdateDto = commentService.findCommentById(id);
         model.addAttribute("comment", commentUpdateDto);
         return "dashboard/comment/update";
     }
 
     @PostMapping("/admin/comments/update/{id}")
     public String updateComment(@PathVariable int id, @ModelAttribute CommentUpdateDto commentUpdateDto) {
-        StudentComments comment = commentRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid comment Id:" + id));
-        comment.setFullName(commentUpdateDto.getFullName());
-        comment.setComment(commentUpdateDto.getComment());
-        comment.setPosition(commentUpdateDto.getPosition());
-        comment.setClas(commentUpdateDto.getClas());
-        comment.setImage(commentUpdateDto.getImage());
-        commentRepository.save(comment);
+        commentService.updateComment(id, commentUpdateDto);
         return "redirect:/admin/comments";
     }
 
     @GetMapping("/admin/comments/remove/{id}")
     public String removeComment(@PathVariable int id) {
-        commentRepository.deleteById(id);
+        commentService.removeComment(id);
         return "redirect:/admin/comments";
     }
+    @GetMapping("/admin/comments/activity/{id}")
+    public String activity(@PathVariable int id)
+    {
+        commentService.activityComment(id);
+        return "redirect:/admin/comments";
+    }
+
 }

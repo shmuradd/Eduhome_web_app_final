@@ -34,7 +34,12 @@
                 <div class="col-md-8">
                     <div class="event-details">
                         <div class="event-details-img">
-                            <img th:src="'/'+${event.getImage()}" alt="event-details">
+                            <img style="height: auto; width: 100%; object-fit: cover"
+                                 th:if="${event.image.startsWith('http')}"
+                                 th:src="${event.getImage()}" alt="course details">
+                            <img style="height: auto; width: 100%; object-fit: cover"
+                                 th:if="${!event.image.startsWith('http')}"
+                                 th:src="'/'+ ${event.getImage()}" alt="course details">
                             <div class="event-date" style="width: 100px;">
                                 <h3>
                                     <span th:text="${#temporals.format(event.getEventDate(), 'MMMM')}"></span> <span th:text="${#temporals.format(event.getEventDate(), 'dd')}"></span>
@@ -114,7 +119,10 @@
                         </div>
                         <div class="single-blog-widget mb-50">
                             <div class="single-blog-banner">
-                                <a th:href="@{/blogs/{id}(id=1)}" id="blog"><img th:src="@{/img/blog/blog-img.jpg}" alt="blog"></a>
+                                <a th:href="@{/blogs/{id}(id=1)}" id="blog">
+                                    <img th:src="@{/img/blog/blog-img.jpg}" alt="blog"></a>
+
+
                                 <h2>best<br> education<br> theme</h2>
                             </div>
                         </div>
@@ -122,7 +130,14 @@
                             <h3>latest post</h3>
                             <div th:each="blog:${blogs}" class="single-post mb-30">
                                 <div class="single-post-img">
-                                    <a th:href="@{/blogs/{id}(id=${blog.id})}"><img style="max-width: 100px; max-height: 100px" th:src="'/'+${blog.getImage()}" alt="post">
+                                    <a th:href="@{/blogs/{id}(id=${blog.id})}">
+
+                                        <img style="max-width: 100px; max-height: 100px"
+                                             th:if="${event.image.startsWith('http')}"
+                                             th:src="${blog.getImage()}" alt="course details">
+                                        <img style="max-width: 100px; max-height: 100px"
+                                             th:if="${!event.image.startsWith('http')}"
+                                             th:src="'/'+ ${blog.getImage()}" alt="course details">
                                         <div class="blog-hover">
                                             <i class="fa fa-link"></i>
                                         </div>

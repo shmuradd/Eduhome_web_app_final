@@ -35,8 +35,8 @@
         <div class="col-md-8">
           <div class="blog-details">
             <div class="blog-details-img">
-              <img th:src="'/' + ${blog.getImage()}" alt="blog-details">
-            </div>
+              <img th:if="${!blog.image.startsWith('http')}" th:src="'/'+ ${blog.getImage()}" alt="blog">
+              <img th:if="${blog.image.startsWith('http')}" th:src="${blog.getImage()}" alt="course">            </div>
             <div class="blog-details-content">
               <h2 th:text="${blog.getTitle()}"></h2>
 

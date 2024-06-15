@@ -31,8 +31,9 @@
                 <div th:each="blog: ${blogs}" class="col-md-4 col-sm-6 col-xs-12">
                     <div class="single-blog mb-60" style="width: 100%; max-width: 400px; height: 430px;">
                         <div class="blog-img">
-                            <a th:href="@{/blogs/{id}(id=${blog.id})}"><img th:src="'/'+${blog.getImage()}" alt="blog"></a>
-                            <div class="blog-hover">
+                            <a th:href="@{/blogs/{id}(id=${blog.id})}">
+                                <img th:if="${!blog.image.startsWith('http')}" th:src="'/'+ ${blog.getImage()}" alt="blog">
+                                <img th:if="${blog.image.startsWith('http')}" th:src="${blog.getImage()}" alt="course">                            <div class="blog-hover">
                                 <i class="fa fa-link"></i>
                             </div>
                         </div>

@@ -21,5 +21,6 @@ public class StudentComments {
     private String position;
     private String clas;
     private String image;
+    private Boolean isActive;
 
 }

@@ -44,7 +44,10 @@
                     <div class="single-teacher">
                         <div class="single-teacher-img">
                             <a th:href="@{/teachers/{id}(id=${teacher.getId()})}">
-                                <img th:src="@{'/' + ${teacher.getImage()}}" alt="teacher">
+                                <img th:if="${!teacher.image.startsWith('http')}" th:src="@{'/' + ${teacher.getImage()}}" alt="teacher">
+                                <img th:if="${teacher.image.startsWith('http')}" th:src="${teacher.getImage()}" alt="teacher">
+
+
                             </a>
                         </div>
                         <div class="single-teacher-content text-center">

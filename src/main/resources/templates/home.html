@@ -70,7 +70,11 @@
                 <div th:each="course : ${courses}" class="col-md-4 col-sm-6 col-xs-12">
                     <div class="single-course">
                         <div class="course-img">
-                            <a th:href="@{/courses/{id}(id=${course.id})}"><img th:src="${course.getImage()}" alt="course">
+                            <a th:href="@{/courses/{id}(id=${course.id})}">
+                                <img th:if="${course.image.startsWith('http')}" th:src="${course.getImage()}" alt="course">
+                                <img th:if="${!course.image.startsWith('http')}" th:src="'/'+${course.getImage()}" alt="course">
+
+
                                 <div class="course-hover">
                                     <i class="fa fa-link"></i>
                                 </div>
@@ -106,7 +110,11 @@
                 <div class="col-md-6 col-sm-12 col-xs-12" th:each="event : ${events}">
                     <div class="single-event mb-35">
                         <div class="event-img">
-                            <a th:href="@{/events/{id}(id=${event.id})}"><img th:src="@{${event.image}}" alt="event"></a>
+                            <a th:href="@{/events/{id}(id=${event.id})}">
+                                <img th:if="${event.image.startsWith('http')}" th:src="@{${event.image}}" alt="event"></a>
+                                <img th:if="${!event.image.startsWith('http')}" th:src="'/'+${event.getImage()}" alt="event"></a>
+
+
                         </div>
                         <div class="event-content text-left">
                             <h3 th:text="${#temporals.format(event.getStartTime(), 'dd MMMM yyyy')}">20 June 2017</h3>
@@ -148,7 +156,8 @@
                     <div class="single-blog">
                         <div class="blog-img">
                             <a th:href="@{/blogs/{id}(id=${blog.id})}">
-                                <img th:src="'/'+ ${blog.getImage()}" alt="blog">
+                                <img th:if="${!blog.image.startsWith('http')}" th:src="'/'+ ${blog.getImage()}" alt="blog">
+                                <img th:if="${blog.image.startsWith('http')}" th:src="${blog.getImage()}" alt="course">
                             </a>
                             <div class="blog-hover">
                                 <a th:href="@{/blogs/{id}(id=${blog.id})}"><i class="fa fa-link"></i></a>

@@ -119,7 +119,7 @@
                                                 <td th:text="${comment.id}"></td>
                                                 <td>
                                                     <a th:href="@{/admin/comments/update/{id}(id=${comment.id})}" class="btn update">Update</a>
-                                                    <a th:href="@{/admin/comments/toggle/{id}(id=${comment.id})}" th:text="${comment.isActive ? 'Deactivate' : 'Activate'}"
+                                                    <a th:href="@{/admin/comments/activity/{id}(id=${comment.id})}" th:text="${comment.isActive ? 'Deactivate' : 'Activate'}"
                                                        th:classappend="${comment.isActive ? 'btn deactivate' : 'btn activate'}">
                                                     </a>
                                                 </td>

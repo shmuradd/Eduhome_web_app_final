@@ -4,6 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+        .single-event {
+            height: 100%; /* Set a fixed height for all event cards */
+        }
+    </style>
 </head>
 <body>
 <main layout:fragment="MainContent">
@@ -29,17 +34,27 @@
         <div class="container">
             <div class="row" >
                 <div th:each="event: ${events}" class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="single-event mb-60" style="height: 100%;">
+                    <div class="single-event mb-60" style="height: 500px;">
                         <div class="event-img">
                             <a th:href="@{/events/{id}(id=${event.id})}">
 
-                                <img th:src="'/'+${event.getImage()}" alt="event">
+
+
+                                <img style="height: auto; width: 100%; object-fit: cover"
+                                     th:if="${event.image.startsWith('http')}"
+                                     th:src="${event.getImage()}" alt="course details">
+                                <img style="height: auto; width: 100%; object-fit: cover"
+                                     th:if="${!event.image.startsWith('http')}"
+                                     th:src="'/'+ ${event.getImage()}" alt="course details">
+
                                 <div class="course-hover">
                                     <i class="fa fa-link"></i>
                                 </div>
                             </a>
-                            <div class="event-date">
-                                <h3 th:text="${event.startTime.dayOfMonth}">20</h3>
+                            <div class="event-date" style="width: 100px;">
+                                <h3>
+                                    <span th:text="${#temporals.format(event.getEventDate(), 'MMMM')}"></span> <span th:text="${#temporals.format(event.getEventDate(), 'dd')}"></span>
+                                </h3>
                             </div>
                         </div>
                         <div class="event-content text-left">
