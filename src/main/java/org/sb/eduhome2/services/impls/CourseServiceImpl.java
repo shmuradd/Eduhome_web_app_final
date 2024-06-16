@@ -126,4 +126,9 @@ public class CourseServiceImpl implements CourseService {
         course.setDeleted(!course.isDeleted()); // Toggle the deleted status
         courseRepository.flush();
     }
+
+    public List<Course> searchCourses(String query) {
+        // Implement search logic based on your requirements, for example:
+        return courseRepository.findByNameContainingIgnoreCase(query);
+    }
 }

@@ -75,8 +75,8 @@
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo mr-5" href="/Brains"><img src="/src/img/logo.png" class="mr-2" alt="logo" /></a>
-                <a class="navbar-brand brand-logo-mini" href="/Brains"><img src="/src/img/logo.png" alt="logo" /></a>
+                <a class="navbar-brand brand-logo mr-5" th:href="@{/admin}"><img th:src="@{/img/logo/logo2.png}" class="mr-2" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" th:href="@{/admin}"><img th:src="@{/img/logo/logo2.png}" alt="logo" /></a>
             </div>
         </nav>
         <!-- partial -->
@@ -129,8 +129,8 @@
                                                 <td th:text="${event.name}"></td>
                                                 <td th:text="${event.description}"></td>
                                                 <td>
-                                                    <img class="event-image" th:if="${event.image.startsWith('http')}" th:src="${event.image}" alt="Event Image" style="width: 150px;height: 150px;"/>
-                                                    <img class="event-image" th:if="${!event.image.startsWith('http')}" th:src="'/'+${event.image}" alt="Event Image" style="width: 150px;height: 150px;"/>
+                                                    <img class="event-image" th:if="${event.image != null  and  event.image.startsWith('http')}" th:src="${event.image}" alt="Event Image" style="width: 150px;height: 150px;"/>
+                                                    <img class="event-image" th:if="${event.image != null  and  !event.image.startsWith('http')}" th:src="'/'+${event.image}" alt="Event Image" style="width: 150px;height: 150px;"/>
                                                 </td>
                                                 <td th:text="${event.eventDate}"></td>
                                                 <td th:text="${event.startTime}"></td>

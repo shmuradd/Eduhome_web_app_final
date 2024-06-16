@@ -18,8 +18,8 @@
         <!-- partial:partials/_navbar.html -->
         <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <a class="navbar-brand brand-logo mr-5" th:href="@{/admin}"><img src="/src/img/logo.png" class="mr-2" alt="logo" /></a>
-                <a class="navbar-brand brand-logo-mini" th:href="@{/admin}"><img src="/src/img/logo.png" alt="logo" /></a>
+                <a class="navbar-brand brand-logo mr-5" th:href="@{/admin}"><img th:src="@{/img/logo/logo2.png}" class="mr-2" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" th:href="@{/admin}"><img th:src="@{/img/logo/logo2.png}" alt="logo" /></a>
             </div>
         </nav>
         <!-- partial -->
@@ -84,13 +84,17 @@
                                             </div>
 
                                             <div class="form-group">
-                                                <label>Select Speaker(s)</label>
-                                                <select name="speakerIds" class="form-control" multiple>
+                                                <label>Add Speaker(s)</label>
+                                                <select name="speakerId" class="form-control" multiple required>
                                                     <!-- Her bir konuşmacı için bir seçenek oluştur -->
-                                                    <option th:each="speaker : ${speakers}"
+                                                    <option th:each="speaker,iterStat  : ${speakers}"
                                                             th:text="${speaker.fullname}"
                                                             th:value="${speaker.id}"
-                                                            th:selected="${event.speakerId != null and event.speakerId.contains(speaker.id)}"></option>
+                                                            th:selected="${(event.speakerId == null and iterStat.index == 0) or event.speakerId == speaker.id}">
+
+                                                    </option>
+                                                    <option th:if="${event.speakerId == null}" th:value="" disabled>Select a Speaker</option>
+
                                                 </select>
                                             </div>
 

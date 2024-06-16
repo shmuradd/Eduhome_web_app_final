@@ -7,7 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -27,16 +29,40 @@ public class Event {
     private LocalDateTime endTime;
     private String location;
     @Column(nullable = false) // Make isDeleted persistent
-
     private boolean isDeleted;
 
     private String description;
     private String replyText;
 
     @ManyToMany(mappedBy = "events")
-    //@JoinTable(name = "event_speakers", joinColumns = @JoinColumn(name = "events", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "speakers",referencedColumnName = "id"))
-    private Set<Speaker> speakers =new HashSet<>();
+    private List<Speaker> speakers = new ArrayList<>();
 
+
+    public void addSpeaker(Speaker speaker)
+    {
+        this.speakers.add(speaker);
+        speaker.getEvents().add(this);
+    }
+
+    public void clearSpeakers() {
+        for (Speaker speaker : this.speakers) {
+            speaker.getEvents().remove(this);
+        }
+        this.speakers.clear();
+    }
+
+    public void removeDuplicateSpeakers() {
+        Set<Integer> speakerIds = new HashSet<>();
+        List<Speaker> uniqueSpeakers = new ArrayList<>();
+        for (Speaker speaker : this.speakers) {
+            if (speakerIds.add(speaker.getId())) {
+                uniqueSpeakers.add(speaker);
+            } else {
+                speaker.getEvents().remove(this);
+            }
+        }
+        this.speakers = uniqueSpeakers;
+    }
 
 
 }

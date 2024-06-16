@@ -9,7 +9,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @NoArgsConstructor
@@ -40,14 +42,13 @@ public class Speaker {
     @Size(max = 300)
     private String company;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
-  //  @JoinTable(name = "event_speakers", joinColumns = @JoinColumn(name = "speakers", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "events",referencedColumnName = "id"))
+    @ManyToMany
     @JoinTable(
             name = "event_speakers",
-            joinColumns = { @JoinColumn(name = "speaker_id", referencedColumnName = "id") },
-            inverseJoinColumns = { @JoinColumn(name = "event_id", referencedColumnName = "id") }
+            joinColumns = @JoinColumn(name = "speaker_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "event_id", referencedColumnName = "id")
     )
-    private Set<Event> events =new HashSet<>();
+    private List<Event> events = new ArrayList<>();
 
 }
 

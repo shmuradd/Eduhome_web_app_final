@@ -15,7 +15,7 @@ public class EventUpdateDto {
     private LocalDateTime endTime;
     private String location;
 
-    List<Integer> speakerId;
+    private int speakerId;
 
     private String description;
     private String replyText;

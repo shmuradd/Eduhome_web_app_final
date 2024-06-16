@@ -1,10 +1,25 @@
+<!-- searchResults.html -->
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+    <!-- Add your CSS stylesheets or links here if needed -->
 </head>
 <body>
-$END$
+<h2>Search Results</h2>
+<div th:if="${courses.empty}">
+    <p>No courses found for your search.</p>
+</div>
+<div th:if="${not courses.empty}">
+    <ul>
+        <li th:each="course : ${courses}">
+            <h3 th:text="${course.name}"></h3>
+            <p th:text="${course.description}"></p>
+            <!-- Add more details as needed -->
+            <a th:href="@{'/course/details/' + ${course.id}}">Read More</a>
+        </li>
+    </ul>
+</div>
 </body>
 </html>

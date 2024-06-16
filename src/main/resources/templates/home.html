@@ -108,11 +108,11 @@
             </div>
             <div class="row" >
                 <div class="col-md-6 col-sm-12 col-xs-12" th:each="event : ${events}">
-                    <div class="single-event mb-35">
+                    <div class="single-event mb-35" style="height: 320px;">
                         <div class="event-img">
                             <a th:href="@{/events/{id}(id=${event.id})}">
-                                <img th:if="${event.image.startsWith('http')}" th:src="@{${event.image}}" alt="event"></a>
-                                <img th:if="${!event.image.startsWith('http')}" th:src="'/'+${event.getImage()}" alt="event"></a>
+                                <img th:if="${event.image.startsWith('http')}" th:src="@{${event.image}}" alt="event" style="max-height: 300px;"></a>
+                                <img th:if="${!event.image.startsWith('http')}" th:src="'/'+${event.getImage()}" alt="event" style="max-height: 300px;"></a>
 
 
                         </div>
@@ -153,7 +153,7 @@
             </div>
             <div class="row">
                 <div th:each="blog: ${blogs}" class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="single-blog">
+                    <div class="single-blog" style="height:430px;">
                         <div class="blog-img">
                             <a th:href="@{/blogs/{id}(id=${blog.id})}">
                                 <img th:if="${!blog.image.startsWith('http')}" th:src="'/'+ ${blog.getImage()}" alt="blog">

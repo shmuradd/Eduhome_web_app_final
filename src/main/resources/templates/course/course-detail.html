@@ -102,7 +102,8 @@
                         </div>
                         <div class="single-blog-widget mb-50">
                             <div class="single-blog-banner">
-                                <a href="blog-details.html" id="blog"><img th:src="@{/img/blog/blog-img.jpg}" alt="blog"></a>
+                                <a href="blog-details.html" id="blog"><img
+                                        th:src="@{/img/blog/blog-img.jpg}" alt="blog"></a>
                                 <h2>best<br> eductaion<br> theme</h2>
                             </div>
                         </div>
@@ -110,7 +111,12 @@
                             <h3>latest post</h3>
                             <div th:each="blog:${blogs}" class="single-post mb-30">
                                 <div class="single-post-img">
-                                    <a th:href="@{/blogs/{id}(id=${blog.id})}"><img style="max-width: 100px; max-height: 100px" th:src="'/'+${blog.getImage()}" alt="post">
+                                    <a th:href="@{/blogs/{id}(id=${blog.id})}">
+                                        <img style="max-width: 100px; max-height: 100px"  th:if="${!blog.image.startsWith('http')}" th:src="'/'+${blog.getImage()}" alt="post">
+                                        <img style="max-width: 100px; max-height: 100px"  th:if="${blog.image.startsWith('http')}" th:src="${blog.getImage()}" alt="post">
+
+
+
                                         <div class="blog-hover">
                                             <i class="fa fa-link"></i>
                                         </div>

@@ -18,6 +18,7 @@ import org.sb.eduhome2.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -32,6 +33,7 @@ public class EventServiceImpl implements EventService {
     private SpeakerRepository speakerRepository;
     @Autowired
     private ModelMapper modelMapper;
+
     @Override
     public List<EventDto> getEvents() {
         List<EventDto> eventDtoList=eventRepository.findAll().stream()
@@ -72,10 +74,9 @@ public class EventServiceImpl implements EventService {
             event.setLocation(eventCreateDto.getLocation());
             event.setDescription(eventCreateDto.getDescription());
             event.setReplyText(eventCreateDto.getReplyText());
-            Set<Speaker> speakers = eventCreateDto.getSpeakerId().stream()
-                    .map(id -> speakerRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Speaker not found with ID: " + id)))
-                    .collect(Collectors.toSet());
-            event.setSpeakers(speakers);            // Add any additional fields here if needed
+            Speaker speaker = speakerRepository.findById(eventCreateDto.getSpeakerId())
+                    .orElseThrow(() -> new IllegalArgumentException("Speaker not found with ID: " + eventCreateDto.getSpeakerId()));
+            event.addSpeaker(speaker);            // Add any additional fields here if needed
             event.setDeleted(false);
             eventRepository.save(event);
         } catch (Exception e) {
@@ -101,6 +102,22 @@ public class EventServiceImpl implements EventService {
         event.setLocation(eventUpdateDto.getLocation());
         event.setDescription(eventUpdateDto.getDescription());
         event.setReplyText(eventUpdateDto.getReplyText());
+
+        // Find the speaker by ID
+        Speaker speaker = speakerRepository.findById(eventUpdateDto.getSpeakerId())
+                .orElseThrow(() -> new IllegalArgumentException("Speaker not found with ID: " + eventUpdateDto.getSpeakerId()));
+
+        // Check if the speaker is already associated with the event
+        boolean speakerExists = event.getSpeakers().stream()
+                .anyMatch(existingSpeaker -> existingSpeaker.getId() == speaker.getId());
+
+        // Add the new speaker only if it's not already associated with the event
+        if (!speakerExists) {
+            event.addSpeaker(speaker);
+        }
+
+        // Remove duplicate speakers
+        event.removeDuplicateSpeakers();
 
         eventRepository.saveAndFlush(event);
     }

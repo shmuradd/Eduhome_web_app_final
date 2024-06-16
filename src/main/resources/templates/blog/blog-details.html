@@ -89,7 +89,13 @@
               <h3>latest post</h3>
               <div th:each="blog:${blogs}" class="single-post mb-30">
                 <div class="single-post-img">
-                  <a th:href="@{/blogs/{id}(id=${blog.id})}"><img style="max-width: 100px; max-height: 100px" th:src="'/'+${blog.getImage()}" alt="post">
+                  <a th:href="@{/blogs/{id}(id=${blog.id})}">
+                    <img style="max-width: 100px; max-height: 100px"
+                         th:if="${blog.image.startsWith('http')}"
+                         th:src="${blog.getImage()}" >
+                    <img style="max-width: 100px; max-height: 100px"
+                         th:if="${!blog.image.startsWith('http')}"
+                         th:src="'/'+ ${blog.getImage()}">
                     <div class="blog-hover">
                       <i class="fa fa-link"></i>
                     </div>

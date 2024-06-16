@@ -97,4 +97,10 @@ public class CoursesController {
 
 
 
+    @GetMapping("/search")
+    public String searchCourses(@RequestParam("query") String query, Model model) {
+        List<Course> searchResults = courseService.searchCourses(query); // Implement this method in CourseService
+        model.addAttribute("courses", searchResults);
+        return "course/searchResults"; // Thymeleaf template to display search results
+    }
 }

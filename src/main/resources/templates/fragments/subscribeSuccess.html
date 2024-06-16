@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Subscription Successful</title>
 </head>
 <body>
-
+<h1>Thank you for subscribing!</h1>
+<p th:text="'You have successfully subscribed with the email: ' + ${email}"></p>
+<a th:href="@{/}">Go back to home</a>
 </body>
 </html>

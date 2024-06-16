@@ -52,21 +52,20 @@
                     <p>I must explain to you how all this mistaken idea </p>
                 </div>
                 <div class="newsletter-form mc_embed_signup">
-                    <form action="http://devitems.us11.list-manage.com/subscribe/post?u=6bbb9b6f5827bd842d9640c82&amp;id=05d85f18ef" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                    <form onsubmit="submitForm(event)" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
                         <div id="mc_embed_signup_scroll" class="mc-form">
-                            <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="Enter your e-mail address" required>
-                            <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-                            <div class="mc-news" aria-hidden="true"><input type="text" name="b_6bbb9b6f5827bd842d9640c82_05d85f18ef" tabindex="-1" value=""></div>
-                            <button id="mc-embedded-subscribe" class="default-btn" type="submit" name="subscribe"><span>subscribe</span></button>
+                            <input type="email" name="email" class="email" id="mce-EMAIL" placeholder="Enter your e-mail address" required>
+                            <div class="mc-news" aria-hidden="true">
+                                <input type="text" name="b_6bbb9b6f5827bd842d9640c82_05d85f18ef" tabindex="-1" value="" >
+                            </div>
+                            <button id="mc-embedded-subscribe" class="default-btn" type="submit" name="subscribe"><span>Subscribe</span></button>
                         </div>
                     </form>
-                    <!-- mailchimp-alerts Start -->
                     <div class="mailchimp-alerts">
-                        <div class="mailchimp-submitting"></div><!-- mailchimp-submitting end -->
-                        <div class="mailchimp-success"></div><!-- mailchimp-success end -->
-                        <div class="mailchimp-error"></div><!-- mailchimp-error end -->
+                        <div class="mailchimp-submitting"></div>
+                        <div class="mailchimp-success"></div>
+                        <div class="mailchimp-error"></div>
                     </div>
-                    <!-- mailchimp-alerts end -->
                 </div>
             </div>
         </div>
@@ -77,7 +76,48 @@
 <footer th:replace="fragments/footer"></footer>
 
 <!-- Footer End -->
+<script>
+    function submitForm(event) {
+        event.preventDefault();
+        const form = event.target;
+        const email = form.email.value;
 
+        fetch('/subscribe', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: new URLSearchParams({
+                'email': email
+            })
+        }).then(response => {
+            if (response.ok) {
+                // Create a hidden form and submit it to formsubmit.co
+                const hiddenForm = document.createElement('form');
+                hiddenForm.action = 'https://formsubmit.co/sharifov.murad29@gmail.com';
+                hiddenForm.method = 'POST';
+                hiddenForm.style.display = 'none';
+
+                const hiddenEmailField = document.createElement('input');
+                hiddenEmailField.type = 'hidden';
+                hiddenEmailField.name = 'email';
+                hiddenEmailField.value = email;
+
+                hiddenForm.appendChild(hiddenEmailField);
+                document.body.appendChild(hiddenForm);
+
+                hiddenForm.submit();
+            } else {
+                // Handle error
+                alert('Failed to subscribe. Please try again.');
+            }
+        }).catch(error => {
+            // Handle error
+            console.error('Error:', error);
+            alert('Failed to subscribe. Please try again.');
+        });
+    }
+</script>
 <script src="js/vendor/jquery-1.12.0.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.meanmenu.js"></script>
@@ -88,6 +128,32 @@
 <script src="js/jquery.nicescroll.min.js"></script>
 <script src="js/plugins.js"></script>
 <script src="js/main.js"></script>
+
+<script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+</script>
+<script type="text/javascript">
+    (function(){
+        emailjs.init({
+            publicKey: "LAMM7X72x6XZWNe_0",
+        });
+    })();
+</script>
+
+<script>
+    function sendMail()
+    {
+        let parms={
+            name: document.getElementById("name").value,
+            email:document.getElementById("email").value,
+            subject:document.getElementById("subject").value,
+            message:document.getElementById("message").value,
+        }
+        emailjs.send("service_wwpzjlk","template_ncqqkdo",parms).then(alert("Email Sent!!"))
+
+    }
+
+</script>
 <th:block th:if="${page == 'contact'}">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSLSFRa0DyBj9VGzT7GM6SFbSMcG0YNBM"></script>
     <script type="text/javascript">

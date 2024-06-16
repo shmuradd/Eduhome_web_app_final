@@ -1,10 +1,88 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{dashboard/fragments/layout}">
+
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- plugins:css -->
+
 </head>
 <body>
-$END$
+
+<main layout:fragment="MainContent">
+    <div class="container-scroller">
+        <!-- partial:partials/_navbar.html -->
+        <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+            <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                <a class="navbar-brand brand-logo mr-5" th:href="@{/admin}"><img th:src="@{/img/logo/logo2.png}" class="mr-2" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" th:href="@{/admin}"><img th:src="@{/img/logo/logo2.png}" alt="logo" /></a>
+            </div>
+        </nav>
+        <!-- partial -->
+        <div class="container-fluid page-body-wrapper">
+            <!-- partial:partials/_settings-panel.html -->
+            <!-- partial -->
+            <!-- partial:partials/_sidebar.html -->
+            <div th:insert="~{dashboard/fragments/sidebar.html}">
+
+            </div>
+            <!-- partial -->
+            <div class="main-panel">
+                <div class="content-wrapper">
+                    <div class="row">
+                        <div class="col-md-6 grid-margin stretch-card">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Təlimçi yarat</h4>
+                                    <form th:action="@{/admin/speakers/create}" th:object="${speakerCreateDto}" method="post" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label for="fullname">Full Name</label>
+                                            <input type="text" id="fullname" name="fullname" class="form-control" th:field="*{fullname}" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="image">Image URL</label>
+                                            <input type="text" id="image" name="image" class="form-control" th:field="*{image}" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="duty">Duty</label>
+                                            <input type="text" id="duty" name="duty" class="form-control" th:field="*{duty}" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="company">Company</label>
+                                            <input type="text" id="company" name="company" class="form-control" th:field="*{company}" required />
+                                        </div>
+                                        <button type="submit" class="btn btn-primary">Create</button>
+                                    </form>                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <!-- content-wrapper ends -->
+                <!-- partial:partials/_footer.html -->
+                <footer class="footer">
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023.  by <a href="h//wa.me/994993401010" target="_blank">JrC</a>  All rights reserved.</span>
+
+                    </div>
+                    <div class="d-sm-flex justify-content-center justify-content-sm-between">
+                    </div>
+                </footer>
+                <!-- partial -->
+            </div>
+            <!-- main-panel ends -->
+        </div>
+        <!-- page-body-wrapper ends -->
+    </div>
+
+</main>
+
 </body>
+
 </html>
+

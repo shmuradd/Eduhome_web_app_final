@@ -41,7 +41,7 @@
             </div>
             <div class="row">
                 <div th:each="teacher: ${teachers}" class="col-md-3 col-sm-4 col-xs-12">
-                    <div class="single-teacher">
+                    <div class="single-teacher" style="height: 350px;">
                         <div class="single-teacher-img">
                             <a th:href="@{/teachers/{id}(id=${teacher.getId()})}">
                                 <img th:if="${!teacher.image.startsWith('http')}" th:src="@{'/' + ${teacher.getImage()}}" alt="teacher">

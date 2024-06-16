@@ -29,6 +29,10 @@ public class DashboardController {
     public String admin() {
         return "dashboard/admin";
     }
+    @GetMapping("/admin/messages")
+    public String getMessagesPage() {
+        return "dashboard/replies/replies";
+    }
 
 
 }

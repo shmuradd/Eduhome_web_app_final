@@ -34,17 +34,17 @@
         <div class="container">
             <div class="row" >
                 <div th:each="event: ${events}" class="col-md-4 col-sm-6 col-xs-12">
-                    <div class="single-event mb-60" style="height: 500px;">
+                    <div class="single-event mb-60" style="height: 550px;">
                         <div class="event-img">
                             <a th:href="@{/events/{id}(id=${event.id})}">
 
 
 
-                                <img style="height: auto; width: 100%; object-fit: cover"
-                                     th:if="${event.image.startsWith('http')}"
+                                <img style="height: 350px; width: 350px; object-fit: cover"
+                                     th:if="${event.image != null  and event.image.startsWith('http')}"
                                      th:src="${event.getImage()}" alt="course details">
-                                <img style="height: auto; width: 100%; object-fit: cover"
-                                     th:if="${!event.image.startsWith('http')}"
+                                <img style="height: 350px; width: 350px; object-fit: cover"
+                                     th:if="${event.image != null  and  !event.image.startsWith('http')}"
                                      th:src="'/'+ ${event.getImage()}" alt="course details">
 
                                 <div class="course-hover">
@@ -76,31 +76,6 @@
 
                 </div>
 
-                <div class="col-md-4 hidden-sm hidden-xs">
-                    <div class="single-event">
-                        <div class="event-img">
-                            <a href="event-details.html">
-                                <img src="img/event/event13.jpg" alt="event">
-                                <div class="course-hover">
-                                    <i class="fa fa-link"></i>
-                                </div>
-                            </a>
-                            <div class="event-date">
-                                <h3>04 <span>jun</span></h3>
-                            </div>
-                        </div>
-                        <div class="event-content text-left">
-                            <h4><a href="event-details.html">NEW TREND IN WEBDESIGN</a></h4>
-                            <ul>
-                                <li><span>time:</span> 9.00 AM - 4.45 PM</li>
-                                <li><span>venue</span> New Yourk City</li>
-                            </ul>
-                            <div class="event-content-right">
-                                <a class="default-btn" href="event-details.html">join now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>

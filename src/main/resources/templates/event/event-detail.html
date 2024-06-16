@@ -34,10 +34,10 @@
                 <div class="col-md-8">
                     <div class="event-details">
                         <div class="event-details-img">
-                            <img style="height: auto; width: 100%; object-fit: cover"
+                            <img style="max-height: 300px; object-fit: cover"
                                  th:if="${event.image.startsWith('http')}"
                                  th:src="${event.getImage()}" alt="course details">
-                            <img style="height: auto; width: 100%; object-fit: cover"
+                            <img style="max-height: 300px; object-fit: cover"
                                  th:if="${!event.image.startsWith('http')}"
                                  th:src="'/'+ ${event.getImage()}" alt="course details">
                             <div class="event-date" style="width: 100px;">
@@ -57,34 +57,21 @@
                                 <li><span>venue : </span><span th:text="${event.getLocation()}"></span></li>
                             </ul>
                             <p th:text="${event.getDescription()}"></p>
-                            <h2>Speakers</h2>
-                            <ul>
-                                <li th:each="speaker : ${speakers}">
-                                    <p th:text="${speaker.fullname}">Speaker Name</p>
-                                    <p th:text="${speaker.duty}">Duty</p>
-                                    <p th:text="${speaker.company}">Company</p>
-                                    <img th:src="@{${speaker.image}}" alt="Speaker Image"/>
-                                </li>
-                            </ul>
+
 
                             <div  class="speakers-area fix">
                                 <h4>speakers</h4>
-                                <div th:each="speaker : ${speakers}" class="single-speaker">
+
+                                <div th:each="speaker: ${speakers}" class="single-speaker">
                                     <div class="speaker-img">
-                                        <img th:src="@{'/' + ${speaker.getImage()}}" alt="speaker">
+                                        <img th:if="${!event.image.startsWith('http')}" th:src="@{'/' + ${speaker.getImage()}}" alt="speaker">
+                                        <img th:if="${event.image.startsWith('http')}" th:src="@{${speaker.getImage()}}" alt="speaker">
+
+
                                     </div>
                                     <div class="speaker-name">
-                                        <h5 th:text="${speaker.fullname}">Speaker Name</h5>
-                                        <p th:text="${speaker.duty} + ', ' + ${speaker.getCompany()}">Speaker Duty, Company</p>
-                                    </div>
-                                </div>
-                                <div class="single-speaker">
-                                    <div class="speaker-img">
-                                        <img th:src="@{/img/event/speaker2.jpg}" alt="speaker">
-                                    </div>
-                                    <div class="speaker-name">
-                                        <h5>Lucy Rose</h5>
-                                        <p>Developer, STD </p>
+                                        <h5 th:text="${speaker.getFullname()}">Lucy Rose</h5>
+                                        <p th:text="${speaker.getDuty()}+', '+${speaker.getCompany()}">Developer, STD </p>
                                     </div>
                                 </div>
                             </div>
@@ -133,11 +120,11 @@
                                     <a th:href="@{/blogs/{id}(id=${blog.id})}">
 
                                         <img style="max-width: 100px; max-height: 100px"
-                                             th:if="${event.image.startsWith('http')}"
-                                             th:src="${blog.getImage()}" alt="course details">
+                                             th:if="${blog.image.startsWith('http')}"
+                                             th:src="${blog.getImage()}" >
                                         <img style="max-width: 100px; max-height: 100px"
-                                             th:if="${!event.image.startsWith('http')}"
-                                             th:src="'/'+ ${blog.getImage()}" alt="course details">
+                                             th:if="${!blog.image.startsWith('http')}"
+                                             th:src="'/'+ ${blog.getImage()}">
                                         <div class="blog-hover">
                                             <i class="fa fa-link"></i>
                                         </div>

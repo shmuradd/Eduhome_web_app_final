@@ -19,6 +19,6 @@ public class EventCreateDto {
     private String location;
     private String description;
     private String replyText;
-    List<Integer> speakerId;
+    private int speakerId;
 
 }

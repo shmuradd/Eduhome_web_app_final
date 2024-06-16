@@ -3,16 +3,22 @@ package org.sb.eduhome2.controllers;
 import org.sb.eduhome2.dtos.blogs.BlogDto;
 import org.sb.eduhome2.dtos.course.CourseDto;
 import org.sb.eduhome2.dtos.event.EventDto;
+import org.sb.eduhome2.models.EmailSubscription;
 import org.sb.eduhome2.repositories.*;
 import org.sb.eduhome2.services.BlogService;
 import org.sb.eduhome2.services.CourseService;
 import org.sb.eduhome2.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class HomeController {
@@ -48,6 +54,10 @@ public class HomeController {
     @Autowired
     private BlogService blogService;
 
+    @Autowired
+    private EmailSubscriptionRepository emailSubscriptionRepository;
+
+    private Set<String> subscribedEmails = new HashSet<>();
 
     @GetMapping("/")
     public String index(Model model)
@@ -66,7 +76,33 @@ public class HomeController {
 
         return "home";
     }
+    @GetMapping("/subscribe")
+    public String subscribeSuccess(Model model) {
+        // Add any necessary attributes to the model
+        return "fragments/subscribeSuccess";
+    }
 
+    @PostMapping("/subscribe")
+    public ResponseEntity<Map<String, Object>> subscribe(@RequestParam("email") String email) {
+        Map<String, Object> response = new HashMap<>();
 
+        if (subscribedEmails.contains(email)) {
+            response.put("success", false);
+            response.put("message", "This email is already subscribed.");
+        } else {
+            // Add to subscribedEmails set
+            subscribedEmails.add(email);
+
+            // Save to repository
+            EmailSubscription subscription = new EmailSubscription();
+            subscription.setEmail(email);
+            emailSubscriptionRepository.save(subscription);
+
+            response.put("success", true);
+            response.put("email", email);
+        }
+
+        return ResponseEntity.ok(response);
+    }
 
 }

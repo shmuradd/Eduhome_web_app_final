@@ -6,6 +6,7 @@ import org.sb.eduhome2.dtos.course.CourseDto;
 import org.sb.eduhome2.dtos.course.CourseUpdateDto;
 import org.sb.eduhome2.dtos.teachers.TeacherCreateDto;
 import org.sb.eduhome2.dtos.teachers.TeacherUpdateDto;
+import org.sb.eduhome2.models.Course;
 
 import java.util.List;
 
@@ -23,4 +24,7 @@ public interface CourseService {
     public void updateCourse(int id, CourseUpdateDto courseUpdateDto);
     public void removeCourse(int courseId);
     public void activityCourse(int courseId);
+
+    public List<Course> searchCourses(String query);
+
 }
