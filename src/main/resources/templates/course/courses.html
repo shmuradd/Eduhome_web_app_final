@@ -44,7 +44,7 @@
             <div class="row">
                 <th:block th:each="course : ${courses}">
                     <div class="col-md-4 col-sm-6 col-xs-12">
-                        <div class="single-course mb-70" >
+                        <div class="single-course mb-70" style="height:450px;" >
                             <div class="course-img">
                                 <a th:href="@{/courses/{id}(id=${course.id})}">
                                     <img style="height: 300px; width: 100%; object-fit: cover" th:src="${course.getImage()}" alt="course">

@@ -6,28 +6,24 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.util.Properties;
-
 @Configuration
 public class MailConfig {
 
-
-
     @Bean
-    public JavaMailSender javaMailSender()
-    {
-        JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
+    public JavaMailSender getJavaMailSender() {
+        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        mailSender.setHost("smtp.gmail.com");
+        mailSender.setPort(587);
 
-        javaMailSender.setHost("smtp.ethereal.email");
-        javaMailSender.setPort(587);
-        javaMailSender.setUsername("nathen.quigley@ethereal.email");
-        javaMailSender.setPassword("ttbJ8twhf11BZHYBD2");
+        mailSender.setUsername("sharifov.murad29@gmail.com");
+        mailSender.setPassword("eaof xlsk oktr cwfr");
 
-        Properties props = javaMailSender.getJavaMailProperties();
+        Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.debug", "true");
 
-        return javaMailSender;
+        return mailSender;
     }
 }

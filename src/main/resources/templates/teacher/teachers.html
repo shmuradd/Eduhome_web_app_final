@@ -54,7 +54,7 @@
         <div class="container">
             <div class="row">
                 <div th:each="teacher: ${teachers}" class="col-md-3 col-sm-4 col-xs-12">
-                    <div class="single-teacher mb-45" style="height: 300px;">
+                    <div class="single-teacher mb-45" style="height: 350px;">
                         <div class="single-teacher-img">
                             <a th:href="@{/teachers/{id}(id=${teacher.id})}">
                                 <img  th:if="${!teacher.image.startsWith('http')}" th:src="@{'/' + ${teacher.image}}"  width="160" height="160"/>

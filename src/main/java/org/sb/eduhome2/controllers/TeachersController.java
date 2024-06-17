@@ -1,4 +1,5 @@
 package org.sb.eduhome2.controllers;
+import java.util.Comparator;
 
 import org.sb.eduhome2.dtos.course.CourseDetailDto;
 import org.sb.eduhome2.dtos.course.CourseDto;
@@ -44,10 +45,14 @@ public class TeachersController {
 
     @GetMapping("/admin/teachers")
     public String teachers(Model model) {
-        List<Teacher> teachers = teacherRepository.findAll().stream().toList();
+        List<Teacher> teachers = teacherRepository.findAll()
+                .stream()
+                .sorted(Comparator.comparingLong(Teacher::getId))
+                .toList();
         model.addAttribute("teachers", teachers);
         return "dashboard/teacher/teachers";
     }
+
     @GetMapping("/admin/teachers/create")
     public String teacherCreate() {
         return "dashboard/teacher/teacher-create";

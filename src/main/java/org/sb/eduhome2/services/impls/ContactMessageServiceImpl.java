@@ -59,22 +59,47 @@ public class ContactMessageServiceImpl implements ContactMessageService {
         message.setReplied(true);
         messageRepository.save(message);
 
-        // Send email reply
-        //sendEmailReply(message.getEmail(), reply);
+        // Prepare the email content
+        String emailContent = String.format(
+                "Hello %s,\n\nYou got a new message from the EduHome team:\n\n%s\n\nThank you for reaching out to us. We appreciate you taking the time to contact us. Our team has received your message and will get back to you as soon as possible.\n\nBest wishes,\nEduHome team",
+                message.getName(),  // Assuming ContactMessage has a getName() method
+                reply
+        );
 
+        // Send email reply
+        sendEmailReply(message.getEmail(), emailContent);
 
         return message;
     }
 
     private void sendEmailReply(String recipientEmail, String reply) {
-        // Prepare the email message
-        SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setTo(recipientEmail);
-        mailMessage.setSubject("Reply from Admin");
-        mailMessage.setText(reply);
+        try {
+            // Prepare the email message
+            SimpleMailMessage mailMessage = new SimpleMailMessage();
+            mailMessage.setTo(recipientEmail);
+            mailMessage.setSubject("Reply from Admin");
+            mailMessage.setText(reply);
 
-        // Send the email
-        mailSender.send(mailMessage);
+            // Send the email
+            mailSender.send(mailMessage);
+        } catch (Exception e) {
+            // Log the error
+            System.err.println("Error sending email: " + e.getMessage());
+            // Optionally, you can rethrow the exception or handle it accordingly
+        }
     }
+
+
+
+    public void sendSimpleMessage(String to, String subject, String text) {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("sharifov.murad29@gmail.com");  // Set the sender's email address
+
+        message.setTo(to);
+        message.setSubject(subject);
+        message.setText(text);
+        mailSender.send(message);
+    }
+
 
 }
