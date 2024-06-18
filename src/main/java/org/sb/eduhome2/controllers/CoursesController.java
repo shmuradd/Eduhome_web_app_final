@@ -6,6 +6,7 @@ import org.sb.eduhome2.dtos.course.CourseDto;
 import org.sb.eduhome2.dtos.course.CourseCreateDto;
 import org.sb.eduhome2.dtos.course.CourseUpdateDto;
 import org.sb.eduhome2.models.Course;
+import org.sb.eduhome2.models.Teacher;
 import org.sb.eduhome2.repositories.CourseRepository;
 import org.sb.eduhome2.services.BlogService;
 import org.sb.eduhome2.services.CourseService;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -51,7 +53,9 @@ public class CoursesController {
     //Admin panel
     @GetMapping("/admin/courses")
     public String courses(Model model) {
-        List<Course> courses = courseRepository.findAll().stream().toList();
+        List<Course> courses = courseRepository.findAll().stream()
+                        .sorted(Comparator.comparingLong(Course::getId).reversed())
+                        .toList();
         model.addAttribute("courses", courses);
         return "dashboard/course/courses";
     }

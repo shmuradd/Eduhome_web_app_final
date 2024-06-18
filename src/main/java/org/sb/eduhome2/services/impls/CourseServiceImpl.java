@@ -12,6 +12,7 @@ import org.sb.eduhome2.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,6 +32,7 @@ public class CourseServiceImpl implements CourseService {
         List<CourseDto> courseDtoList=courseRepository.findAll().stream()
                 .filter(x->x.isDeleted()==false)
                 .map(course->modelMapper.map(course, CourseDto.class))
+                .sorted(Comparator.comparingLong(CourseDto::getId).reversed())
                 .collect(Collectors.toList());
         return courseDtoList;
     }

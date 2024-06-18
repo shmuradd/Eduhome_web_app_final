@@ -43,8 +43,8 @@
             </div>
             <div class="row">
                 <th:block th:each="course : ${courses}">
-                    <div class="col-md-4 col-sm-6 col-xs-12">
-                        <div class="single-course mb-70" style="height:450px;" >
+                    <div class="col-md-4 col-sm-6 col-xs-12" >
+                        <div class="single-course mb-70" style="height:550px;" >
                             <div class="course-img">
                                 <a th:href="@{/courses/{id}(id=${course.id})}">
                                     <img style="height: 300px; width: 100%; object-fit: cover" th:src="${course.getImage()}" alt="course">
@@ -55,7 +55,7 @@
                             </div>
                             <div class="course-content">
                                 <h3><a th:href="@{/courses/{id}(id=${course.id})}" th:text="${course.name}"></a></h3>
-                                <p th:text="${course.description}"></p>
+                                <p th:text="${#strings.length(course.description) &gt; 100} ? ${#strings.substring(course.description, 0, 100) + '...'} : ${course.description}"></p>
                                 <a class="default-btn" th:href="@{/courses/{id}(id=${course.id})}">read more</a>
                             </div>
                         </div>

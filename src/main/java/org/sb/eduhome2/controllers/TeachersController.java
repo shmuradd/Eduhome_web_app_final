@@ -47,7 +47,7 @@ public class TeachersController {
     public String teachers(Model model) {
         List<Teacher> teachers = teacherRepository.findAll()
                 .stream()
-                .sorted(Comparator.comparingLong(Teacher::getId))
+                .sorted(Comparator.comparingLong(Teacher::getId).reversed())
                 .toList();
         model.addAttribute("teachers", teachers);
         return "dashboard/teacher/teachers";

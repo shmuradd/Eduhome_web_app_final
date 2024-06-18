@@ -20,12 +20,17 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    @Column(length = 10000)
+
     private String description;
     private String image;
     @Column(nullable = false)
     private boolean isDeleted=false;
+    @Column(length = 10000)
 
     private String applyDescription;
+    @Column(length = 10000)
+
     private String certificationDescription;
     private LocalDate startDate;
     private String durationTime;
