@@ -13,9 +13,11 @@ import org.sb.eduhome2.services.EmailService;
 import org.sb.eduhome2.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -37,6 +39,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public boolean register(RegisterDto register) {
@@ -92,5 +97,39 @@ public class UserServiceImpl implements UserService {
         findUser.setRoles(roles);
         userRepository.save(findUser);
 
+    }
+
+    @Override
+    public UserEntity findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public void savePasswordResetToken(String email, String token) {
+        UserEntity user = userRepository.findByEmail(email);
+        if (user != null) {
+            user.setConfirmationToken(token);
+            userRepository.save(user);
+        }
+    }
+
+    @Override
+    public boolean verifyToken(String token) {
+        UserEntity user = userRepository.findByConfirmationToken(token);
+        return user != null;
+    }
+
+
+
+    @Override
+    public void updatePassword(String token, String password) {
+        UserEntity user = userRepository.findByConfirmationToken(token);
+        if (user != null) {
+            // Encode the new password before saving
+            String encodedPassword = passwordEncoder.encode(password);
+            user.setPassword(encodedPassword);
+            user.setConfirmationToken(null); // Clear the reset token after successful reset
+            userRepository.save(user);
+        }
     }
 }
