@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.UUID;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Controller
 public class PasswordController {
@@ -19,6 +21,9 @@ public class PasswordController {
 
     @Autowired
     private UserService userService;
+
+    private static final Logger logger = LoggerFactory.getLogger(PasswordController.class);
+
 
     @GetMapping("/forgot-password") // GET mapping for forgot password form
     public String showForgotPasswordForm() {
@@ -40,29 +45,31 @@ public class PasswordController {
     }
 
 
-    @GetMapping("/reset-password") // GET mapping for reset password form
+    @GetMapping("/reset-password")
     public String showResetPasswordForm(@RequestParam("token") String token, Model model) {
         if (userService.verifyToken(token)) {
-            // Token is valid, show reset password form
             model.addAttribute("token", token);
-            return "dashboard/reset-password"; // Return the view for reset password form
+            return "dashboard/reset-password";
         } else {
-            // Token is invalid or expired, handle accordingly (redirect to error page or reset password page)
             model.addAttribute("error", "Invalid or expired token.");
-            return "dashboard/reset-password"; // Redirect to reset password page with error
+            return "dashboard/error";
         }
     }
 
-
     @PostMapping("/reset-password")
     public String resetPassword(@RequestParam("token") String token, @RequestParam("password") String password, Model model) {
+        logger.debug("Received token: {}", token);
+        logger.debug("Received new password: {}", password);
+
         if (userService.verifyToken(token)) {
+            logger.debug("Token is valid");
             userService.updatePassword(token, password);
             model.addAttribute("message", "Your password has been successfully reset.");
-            return "redirect:/login"; // Redirect to login page or a confirmation page
+            return "redirect:/login";
         } else {
+            logger.debug("Token is invalid or expired");
             model.addAttribute("error", "Invalid or expired token.");
-            return "dashboard/error"; // Redirect to reset password page with error
+            return "dashboard/error";
         }
     }
 }

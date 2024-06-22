@@ -1,6 +1,7 @@
 package org.sb.eduhome2.services.impls;
 
 import org.modelmapper.ModelMapper;
+import org.sb.eduhome2.controllers.PasswordController;
 import org.sb.eduhome2.dtos.authdtos.RegisterDto;
 import org.sb.eduhome2.dtos.userdtos.UserAddRoleDto;
 import org.sb.eduhome2.dtos.userdtos.UserDashboardListDto;
@@ -11,6 +12,8 @@ import org.sb.eduhome2.repositories.RoleRepository;
 import org.sb.eduhome2.repositories.UserRepository;
 import org.sb.eduhome2.services.EmailService;
 import org.sb.eduhome2.services.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,6 +45,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    private static final Logger logger = LoggerFactory.getLogger(PasswordController.class);
+
 
     @Override
     public boolean register(RegisterDto register) {
@@ -123,13 +129,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updatePassword(String token, String password) {
+        logger.debug("Updating password for token: {}", token);
         UserEntity user = userRepository.findByConfirmationToken(token);
         if (user != null) {
-            // Encode the new password before saving
+            logger.debug("User found with token: {}", token);
             String encodedPassword = passwordEncoder.encode(password);
             user.setPassword(encodedPassword);
             user.setConfirmationToken(null); // Clear the reset token after successful reset
             userRepository.save(user);
+            logger.debug("Password updated successfully for user: {}", user.getEmail());
+        } else {
+            logger.debug("No user found with token: {}", token);
         }
+    }
+
+    @Override
+    public boolean checkPassword(UserEntity user, String rawPassword) {
+        return passwordEncoder.matches(rawPassword, user.getPassword());
     }
 }

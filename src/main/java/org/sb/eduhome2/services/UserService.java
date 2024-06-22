@@ -18,4 +18,6 @@ public interface UserService {
     public void savePasswordResetToken(String email, String token);
     public boolean verifyToken(String token);
     public void updatePassword(String token, String password);
+    boolean checkPassword(UserEntity user, String rawPassword);
+
 }

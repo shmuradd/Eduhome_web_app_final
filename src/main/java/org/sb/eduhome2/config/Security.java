@@ -34,7 +34,7 @@ public class Security {
                 .formLogin(form -> form
                         .defaultSuccessUrl("/admin")
                         .loginPage("/login")
-                        .failureUrl("/login")
+                        .failureUrl("/login?error=true")
 
                 )
                 .logout(logout ->
