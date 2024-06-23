@@ -15,6 +15,7 @@ import org.sb.eduhome2.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -146,5 +147,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean checkPassword(UserEntity user, String rawPassword) {
         return passwordEncoder.matches(rawPassword, user.getPassword());
+    }
+
+    @Override
+    public void save(UserEntity user) {
+        userRepository.save(user);
+    }
+    @Override
+    public List<UserEntity> findAllUsers() {
+        return userRepository.findAll();
+    }
+    @Override
+    public Optional<UserEntity> findById(Long id) {
+        return userRepository.findById(id);
     }
 }

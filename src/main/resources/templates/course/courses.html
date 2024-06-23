@@ -47,7 +47,8 @@
                         <div class="single-course mb-70" style="height:550px;" >
                             <div class="course-img">
                                 <a th:href="@{/courses/{id}(id=${course.id})}">
-                                    <img style="height: 300px; width: 100%; object-fit: cover" th:src="${course.getImage()}" alt="course">
+                                    <img style="height: 300px; width: 100%; object-fit: cover"
+                                         th:src="${course.getImage()}" alt="course">
                                     <div class="course-hover">
                                         <i class="fa fa-link"></i>
                                     </div>
