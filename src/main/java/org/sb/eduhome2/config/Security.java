@@ -13,7 +13,8 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class Security {
+public class Security   {
+
     @Autowired
     private CustomUserDetailService userDetailService;
 
@@ -30,12 +31,15 @@ public class Security {
         http
                 .csrf(x->x.disable())
                 .authorizeHttpRequests((request) -> request
+                        .requestMatchers("/admin/users").hasRole("ADMIN") // Only ADMIN can access /admin/users
+                        .requestMatchers("/admin").hasAnyRole("ADMIN", "MODERATOR")
                         .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
-                        .defaultSuccessUrl("/admin")
                         .loginPage("/login")
                         .failureUrl("/login?error=true")
+                        .successHandler(customAuthenticationSuccessHandler()) // Set the custom handler here
+
 
                 )
                 .logout(logout ->
@@ -46,7 +50,12 @@ public class Security {
                 );
         return http.build();
     }
+
     public void configure(AuthenticationManagerBuilder auth) throws Exception{
         auth.userDetailsService(userDetailService).passwordEncoder(bCryptPasswordEncoder());
+    }
+    @Bean
+    public CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler() {
+        return new CustomAuthenticationSuccessHandler();
     }
 }

@@ -6,6 +6,8 @@ import org.sb.eduhome2.dtos.userdtos.UserDashboardListDto;
 import org.sb.eduhome2.dtos.userdtos.UserDto;
 import org.sb.eduhome2.models.UserEntity;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,5 +38,8 @@ public interface UserService {
     public List<UserEntity> findAllUsers();
 
     public Optional<UserEntity> findById(Long id);
+
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException;
+
 }
 

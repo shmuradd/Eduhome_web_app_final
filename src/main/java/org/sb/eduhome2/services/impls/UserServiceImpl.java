@@ -15,13 +15,17 @@ import org.sb.eduhome2.services.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,6 +51,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
     private static final Logger logger = LoggerFactory.getLogger(PasswordController.class);
 
 
@@ -63,6 +68,11 @@ public class UserServiceImpl implements UserService {
         newUser.setEmailConfirmed(false);
         newUser.setConfirmationToken(token);
         newUser.setPassword(hashPassword);
+        // Assign the default role (USER)
+        Role userRole = roleRepository.findByName("ROLE_USER").orElseThrow();
+        newUser.setRoles(List.of(userRole));
+
+
         userRepository.save(newUser);
         emailService.sendConfirmationEmail(register.getEmail(),token);
         return true;
@@ -160,5 +170,19 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<UserEntity> findById(Long id) {
         return userRepository.findById(id);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        UserEntity user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new UsernameNotFoundException("User not found");
+        }
+
+        Set<GrantedAuthority> grantedAuthorities = user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName()))
+                .collect(Collectors.toSet());
+
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), grantedAuthorities);
     }
 }
