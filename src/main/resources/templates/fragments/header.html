@@ -1,12 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Header Example</title>
+    <style>
+        .header-top-left p a {
+            color: white; /* Set the desired color */
+            text-decoration: none; /* Remove underline */
+        }
+        .header-top-left p a:visited {
+            color: white; /* Ensure visited links remain the same color */
+        }
+        .header-top-left p a:hover {
+            color: white; /* Ensure hovered links remain the same color */
+        }
+        .header-top-left p a:active {
+            color: white; /* Ensure active links remain the same color */
+        }
+    </style>
+</head>
+<body>
 <header class="top">
     <div class="header-top">
         <div class="container">
             <div class="row">
                 <div class="col-md-8 col-sm-8 col-xs-12">
                     <div class="header-top-left">
-                        <p>HAVE ANY QUESTION ?  +880 5698  598  6587</p>
+                        <p style="color: white">HAVE ANY QUESTION ? <a href="https://wa.me/994553302891" target="_blank">+99455 330 28 91</a></p>
                     </div>
                 </div>
+
                 <div class="col-md-4 col-sm-4 col-xs-12">
                     <div class="header-top-right text-right">
                         <ul>
@@ -32,19 +56,13 @@
                         <div class="main-menu">
                             <nav>
                                 <ul>
-                                    <li><a th:href="@{/}">Home</a>
-                                    </li>
+                                    <li><a th:href="@{/}">Home</a></li>
                                     <li><a th:href="@{/about}">About</a></li>
-                                    <li><a th:href="@{/courses}">courses</a>
-                                    </li>
-                                    <li><a th:href="@{/events}">events</a>
-                                    </li>
-                                    <li class="hidden-sm"><a th:href="@{/teachers}">teachers</a>
-                                    </li>
-                                    <li><a th:href="@{/blogs}">blogs</a>
-                                    </li>
+                                    <li><a th:href="@{/courses}">courses</a></li>
+                                    <li><a th:href="@{/events}">events</a></li>
+                                    <li class="hidden-sm"><a th:href="@{/teachers}">teachers</a></li>
+                                    <li><a th:href="@{/blogs}">blogs</a></li>
                                     <li><a th:href="@{/contacts}">Contact</a></li>
-
                                 </ul>
                             </nav>
                         </div>
@@ -57,8 +75,8 @@
                             </ul>
                             <div class="search">
                                 <div class="search-form">
-                                    <form id="search-form" action="#">
-                                        <input type="search" placeholder="Search here..." name="search" />
+                                    <form id="search-form" action="/keyword">
+                                        <input type="search" placeholder="Search here..." name="query" />
                                         <button type="submit">
                                             <span><i class="fa fa-search"></i></span>
                                         </button>
@@ -77,3 +95,5 @@
         </div>
     </div>
 </header>
+</body>
+</html>

@@ -1,10 +1,104 @@
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="fragments/layouts/layout">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 30px;
+        }
+        .result {
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: background-color 0.3s;
+        }
+        .result:hover {
+            background-color: #e9ecef;
+        }
+        h2, h3 {
+            color: #343a40;
+        }
+        h2 {
+            margin-bottom: 30px;
+        }
+        .section-header {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: #343a40;
+        }
+        .result h4 {
+            color: #007bff;
+        }
+        .result p {
+            color: #6c757d;
+        }
+        .no-results {
+            text-align: center;
+            color: #6c757d;
+            font-size: 1.2em;
+            margin-top: 20px;
+        }
+        a.result {
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-$END$
+<main layout:fragment="MainContent">
+    <main>
+        <div class="container">
+            <h2>Search Results for "<span th:text="${query}"></span>"</h2>
+            <div class="results">
+                <h3>Teachers</h3>
+                <div th:if="${teachers.size() == 0}" class="no-results">No teachers found.</div>
+                <div th:each="teacher : ${teachers}">
+                    <a th:href="@{/teachers/{id}(id=${teacher.id})}" class="result d-block">
+                        <h4 th:text="${teacher.name} + ' ' + ${teacher.surname}">Teacher Name</h4>
+                        <p th:text="${teacher.job}">Job Title</p>
+                    </a>
+                </div>
+
+                <h3>Blogs</h3>
+                <div th:if="${blogs.size() == 0}" class="no-results">No blogs found.</div>
+                <div th:each="blog : ${blogs}">
+                    <a th:href="@{/blogs/{id}(id=${blog.id})}" class="result d-block">
+                        <h4 th:text="${blog.title}">Blog Title</h4>
+                        <p th:text="${blog.description}">Blog Content</p>
+                    </a>
+                </div>
+
+                <h3>Events</h3>
+                <div th:if="${events.size() == 0}" class="no-results">No events found.</div>
+                <div th:each="event : ${events}">
+                    <a th:href="@{/events/{id}(id=${event.id})}" class="result d-block">
+                        <h4 th:text="${event.name}">Event Title</h4>
+                        <p th:text="${event.description}">Event Description</p>
+                    </a>
+                </div>
+
+                <h3>Courses</h3>
+                <div th:if="${courses.size() == 0}" class="no-results">No courses found.</div>
+                <div th:each="course : ${courses}">
+                    <a th:href="@{/courses/{id}(id=${course.id})}" class="result d-block">
+                        <h4 th:text="${course.name}">Course Title</h4>
+                        <p th:text="${course.description}">Course Description</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</main>
+
 </body>
 </html>
