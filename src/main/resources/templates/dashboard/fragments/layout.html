@@ -25,6 +25,42 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
+
+<!--    //yeni-->
+    <!-- Custom fonts for this template-->
+    <link th:href="@{/admin/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/admin/vendor/datatables/dataTables.bootstrap4.css/dataTables.bootstrap4.min.css}" rel="stylesheet">
+
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link th:href="@{/admin/css/sb-admin-2.min.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMGZhn7PxzF5qq9Wg3/Tqx0x9K8+j1V/mS6H4u5" crossorigin="anonymous">
+    <!-- plugins:css -->
+    <link rel="stylesheet" th:href="@{/admin/vendors/feather/feather.css}">
+    <link rel="stylesheet" th:href="@{/admin/vendors/ti-icons/css/themify-icons.css}">
+    <link rel="stylesheet" th:href="@{/admin/vendors/css/vendor.bundle.base.css}">
+    <!-- endinject -->
+    <!-- Plugin css for this page -->
+    <link rel="stylesheet" th:href="@{/admin/vendors/datatables.net-bs4/dataTables.bootstrap4.css}">
+    <link rel="stylesheet" th:href="@{/admin/vendors/ti-icons/css/themify-icons.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/admin/js/select.dataTables.min.css}">
+    <!-- End plugin css for this page -->
+    <!-- inject:css -->
+    <link rel="stylesheet" th:href="@{/admin/css/vertical-layout-light/style.css}">
+    <!-- endinject -->
+    <link rel="shortcut icon" th:href="@{/admin/images/favicon.png}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Custom fonts for this template-->
+    <link th:href="@{/admin/vendor/fontawesome-free/css/all.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/admin/vendor/datatables/dataTables.bootstrap4.css/dataTables.bootstrap4.min.css}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link th:href="@{/admin/css/sb-admin-2.min.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -73,6 +109,85 @@
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <!-- End custom js for this page-->
+
+<!--//yeni-->
+<!-- Bootstrap core JavaScript-->
+<script th:src="@{/admin/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/admin/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+
+<!-- Core plugin JavaScript-->
+<script th:src="@{/admin/vendor/jquery-easing/jquery.easing.min.js}"></script>
+
+<!-- Custom scripts for all pages-->
+<script th:src="@{/admin/js/sb-admin-2.min.js}"></script>
+
+<!--Page level plugins-->
+<script th:src="@{/admin/vendor/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/admin/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+
+<script src="https://cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
+
+<script>
+    CKEDITOR.replace('myInput');
+</script>
+<!--Page level custom scripts-->
+<script th:src="@{js/demo/datatables-demo.js}"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script th:block="myScript"></script>
+<th:block layout:fragment="myScript"></th:block>
+<script th:src="@{/admin/vendors/js/vendor.bundle.base.js}"></script>
+<!-- endinject -->
+<!-- Plugin js for this page -->
+<script th:src="@{/admin/vendors/chart.js/Chart.min.js}"></script>
+<script th:src="@{/admin/vendors/datatables.net/jquery.dataTables.js}"></script>
+<script th:src="@{/admin/vendors/datatables.net-bs4/dataTables.bootstrap4.js}"></script>
+<script th:src="@{/admin/js/dataTables.select.min.js}"></script>
+<!-- End plugin js for this page -->
+<!-- inject:js -->
+<script th:src="@{/admin/js/off-canvas.js}"></script>
+<script th:src="@{/admin/js/hoverable-collapse.js}"></script>
+<script th:src="@{/admin/js/template.js}"></script>
+<script th:src="@{/admin/js/settings.js}"></script>
+<script th:src="@{/admin/js/todolist.js}"></script>
+<!-- endinject -->
+<!-- Custom js for this page-->
+<script th:src="@{/admin/js/dashboard.js}"></script>
+<script th:src="@{/admin/js/Chart.roundedBarCharts.js}"></script>
+<!-- End custom js for this page-->
+<!-- Bootstrap core JavaScript-->
+<script th:src="@{/admin/vendor/jquery/jquery.min.js}"></script>
+<script th:src="@{/admin/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+<!-- Core plugin JavaScript-->
+<script th:src="@{/admin/vendor/jquery-easing/jquery.easing.min.js}"></script>
+<!-- Custom scripts for all pages-->
+<script th:src="@{/admin/js/sb-admin-2.min.js}"></script>
+<!-- Page level plugins-->
+<script th:src="@{/admin/vendor/datatables/jquery.dataTables.min.js}"></script>
+<script th:src="@{/admin/vendor/datatables/dataTables.bootstrap4.min.js}"></script>
+<!-- Page level custom scripts-->
+<script th:src="@{/js/demo/datatables-demo.js}"></script>
+
+<script src="https://cdn.ckeditor.com/4.22.1/full/ckeditor.js"></script>
+<script>
+    CKEDITOR.replace('myInput');
+</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Custom DataTable script -->
+<script>
+    $(document).ready(function() {
+        $('#dataTable').DataTable({
+            "paging": true,         // Enable pagination
+            "lengthChange": false,  // Disable the page size selector
+            "searching": true,     // Enable search bar
+            "ordering": true,       // Enable sorting
+            "info": true,           // Enable table information display
+            "autoWidth": false      // Disable auto width calculation
+        });
+    });
+</script>
 </body>
 
 </html>
