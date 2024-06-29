@@ -7,12 +7,13 @@ import org.sb.eduhome2.dtos.course.CourseUpdateDto;
 import org.sb.eduhome2.dtos.teachers.TeacherCreateDto;
 import org.sb.eduhome2.dtos.teachers.TeacherUpdateDto;
 import org.sb.eduhome2.models.Course;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
 public interface CourseService {
-    List<CourseDto> getCourses();
-
+    public Page<CourseDto> getCourses(PageRequest pageRequest);
     List<CourseDto> getHomeCourses();
 
     CourseDetailDto courseDetail(int id);

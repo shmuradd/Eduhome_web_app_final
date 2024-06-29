@@ -13,6 +13,9 @@ import org.sb.eduhome2.models.Course;
 import org.sb.eduhome2.repositories.BlogRepository;
 import org.sb.eduhome2.services.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,24 +30,31 @@ public class BlogServiceImpl implements BlogService {
     private ModelMapper modelMapper;
 
     @Override
-    public List<BlogDto> getBlogs() {
-        List<BlogDto> blogDtoList=blogRepository.findAll().stream()
-                .filter(x->x.isDeleted()==false)
-                .map(blog->modelMapper.map(blog, BlogDto.class))
-                .collect(Collectors.toList());
-        return blogDtoList;
+    public Page<BlogDto> getBlogs(PageRequest pageRequest) {
+        Page<Blog> blogsPage = blogRepository.findByIsDeletedFalse(pageRequest);
 
+        Page<BlogDto> blogDtoPage = blogsPage.map(blog -> modelMapper.map(blog, BlogDto.class));
+
+        return blogDtoPage;
     }
+
+
+
 
     @Override
     public List<BlogDto> getHomeBlogs() {
-        List<BlogDto> blogDtoList=blogRepository.findAll().stream()
-                .filter(x->x.isDeleted()==false)
-                .map(blog->modelMapper.map(blog, BlogDto.class))
-                .limit(3)
+        // Create a PageRequest for fetching all courses sorted by ID descending
+        PageRequest pageRequest = PageRequest.of(0, 4, Sort.by(Sort.Direction.DESC, "id"));
+
+        // Fetch courses using pageRequest and filter
+        List<BlogDto> blogDtoList = blogRepository.findAll(pageRequest).stream()
+                .filter(blog -> !blog.isDeleted())
+                .map(blog -> modelMapper.map(blog, BlogDto.class))
                 .collect(Collectors.toList());
+
         return blogDtoList;
     }
+
 
     @Override
     public BlogDetailDto blogDetail(int id) {
@@ -99,4 +109,6 @@ public class BlogServiceImpl implements BlogService {
         blog.setDeleted(!blog.isDeleted());
         blogRepository.flush();
     }
+
+
 }

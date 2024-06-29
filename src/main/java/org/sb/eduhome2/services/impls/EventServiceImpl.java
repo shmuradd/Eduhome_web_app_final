@@ -16,6 +16,9 @@ import org.sb.eduhome2.repositories.EventRepository;
 import org.sb.eduhome2.repositories.SpeakerRepository;
 import org.sb.eduhome2.services.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -34,26 +37,31 @@ public class EventServiceImpl implements EventService {
     @Autowired
     private ModelMapper modelMapper;
 
+
     @Override
-    public List<EventDto> getEvents() {
-        List<EventDto> eventDtoList=eventRepository.findAll().stream()
-                .filter(x->x.isDeleted()==false)
-                .map(event->modelMapper.map(event, EventDto.class))
-                .collect(Collectors.toList());
-        return eventDtoList;
+    public Page<EventDto> getEvents(PageRequest pageRequest) {
+        Page<Event> eventsPage = eventRepository.findByIsDeletedFalse(pageRequest);
+
+        Page<EventDto> eventDtoPage = eventsPage.map(event -> modelMapper.map(event, EventDto.class));
+
+        return eventDtoPage;
     }
 
 
+
     @Override
-    public List<EventDto> getHomeEvents() {
-        List<EventDto> eventDtoList=eventRepository.findAll().stream()
-                .filter(x->x.isDeleted()==false)
-                .map(event->modelMapper.map(event, EventDto.class))
-                .limit(4)
+       public List<EventDto> getHomeEvents() {
+        // Create a PageRequest for fetching all courses sorted by ID descending
+        PageRequest pageRequest = PageRequest.of(0, 4, Sort.by(Sort.Direction.DESC, "id"));
+
+        // Fetch courses using pageRequest and filter
+        List<EventDto> eventDtoList = eventRepository.findAll(pageRequest).stream()
+                .filter(event -> !event.isDeleted())
+                .map(event -> modelMapper.map(event, EventDto.class))
                 .collect(Collectors.toList());
+
         return eventDtoList;
     }
-
 
     @Override
     public EventDetailDto eventDetail(int id) {
@@ -69,7 +77,7 @@ public class EventServiceImpl implements EventService {
             event.setName(eventCreateDto.getName());
             event.setImage(eventCreateDto.getImage());
             event.setEventDate(eventCreateDto.getEventDate());
-            event.setStartTime(eventCreateDto.getStartTime());
+            event.setStartTime(eventCreateDto.getEventDate());
             event.setEndTime(eventCreateDto.getEndTime());
             event.setLocation(eventCreateDto.getLocation());
             event.setDescription(eventCreateDto.getDescription());

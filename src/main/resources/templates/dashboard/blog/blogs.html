@@ -131,7 +131,11 @@
                         <td th:text="${blog.description}"></td>
                         <td>
                           <img class="blog-image" th:if="${blog.image.startsWith('http')}" th:src="${blog.image}" alt="Blog Image" style="width: 150px;height: 150px;"/>
-                          <img class="blog-image" th:if="${!blog.image.startsWith('http')}" th:src="'/'+${blog.image}" alt="Blog Image" style="width: 150px;height: 150px;"/>
+                          <img class="blog-image" th:if="${blog.image.startsWith('img')}" th:src="'/'+${blog.image}" alt="Blog Image" style="width: 150px;height: 150px;"/>
+                          <img class="blog-image" th:if="${blog.image.startsWith('/img')}" th:src="${blog.image}" alt="Blog Image" style="width: 150px;height: 150px;"/>
+
+
+
                         </td>
                         <td th:text="${blog.commentsCount}"></td>
                         <td th:text="${blog.createTime}"></td>

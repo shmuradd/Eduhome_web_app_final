@@ -1,10 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oops! Error</title>
+    <style>
+        body {
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            background-color: #ffefd5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .error-container {
+            text-align: center;
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            animation: float 3s ease-in-out infinite;
+        }
+        .error-container img {
+            width: 150px;
+            height: 150px;
+        }
+        .error-container h1 {
+            font-size: 3rem;
+            margin: 20px 0;
+            color: #ff0000;
+        }
+        .error-container p {
+            font-size: 1.2rem;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .error-container a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #ff0000;
+            font-weight: bold;
+            padding: 15px 30px;
+            border-radius: 50px;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+        .error-container a:hover {
+            background-color: #ff4500;
+            transform: scale(1.1);
+        }
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+    </style>
 </head>
 <body>
-$END$
+<div class="error-container">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt8Ot9qG6sBJFjJP-n_EYXdE9h233QqKEQng&s" alt="Funny Error Image">
+    <h1>Oops! Something Went Wrong</h1>
+    <p>Don't worry, it's not the end of the world. Just a little hiccup.</p>
+    <a href="/">Take Me Home</a>
+</div>
 </body>
 </html>

@@ -84,13 +84,13 @@ public class HomeController {
     public ResponseEntity<Map<String, Object>> subscribe(@RequestParam("email") String email) {
         Map<String, Object> response = new HashMap<>();
 
-        if (subscribedEmails.contains(email)) {
+        // Check if the email is already in the repository
+        Optional<EmailSubscription> existingSubscription = emailSubscriptionRepository.findByEmail(email);
+
+        if (existingSubscription.isPresent()) {
             response.put("success", false);
             response.put("message", "This email is already subscribed.");
         } else {
-            // Add to subscribedEmails set
-            subscribedEmails.add(email);
-
             // Save to repository
             EmailSubscription subscription = new EmailSubscription();
             subscription.setEmail(email);

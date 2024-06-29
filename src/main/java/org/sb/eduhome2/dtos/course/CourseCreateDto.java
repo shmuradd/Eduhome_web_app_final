@@ -9,6 +9,7 @@ public class CourseCreateDto {
     private String name;
     private String description;
     private String image;
+
    private String applyDescription;
     private String certificationDescription;
     private LocalDate startDate;

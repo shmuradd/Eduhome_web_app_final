@@ -72,10 +72,8 @@
                     <div class="single-course mb-70" style="height:550px;" >
                         <div class="course-img">
                             <a th:href="@{/courses/{id}(id=${course.id})}">
-                                <img style="height: 300px; width: 100%; object-fit: cover" th:if="${course.image.startsWith('http')}" th:src="${course.getImage()}" alt="course">
-                                <img style="height: 300px; width: 100%; object-fit: cover" th:if="${!course.image.startsWith('http')}" th:src="'/'+${course.getImage()}" alt="course">
-
-
+                                <img style="height: 300px; width: 100%; object-fit: cover"
+                                     th:src="${course.getImage()}" alt="course">
                                 <div class="course-hover">
                                     <i class="fa fa-link"></i>
                                 </div>
@@ -110,12 +108,10 @@
             <div class="row" >
                 <div class="col-md-6 col-sm-12 col-xs-12" th:each="event : ${events}">
                     <div class="single-event mb-35" style="height: 320px;">
-                        <div class="event-img">
+                        <div class="event-img" style="text-align: center;">
                             <a th:href="@{/events/{id}(id=${event.id})}">
-                                <img th:if="${event.image.startsWith('http')}" th:src="@{${event.image}}" alt="event" style="max-height: 300px;"></a>
-                                <img th:if="${!event.image.startsWith('http')}" th:src="'/'+${event.getImage()}" alt="event" style="max-height: 300px;"></a>
-
-
+                                <img th:if="${event.image.startsWith('http')}" th:src="@{${event.image}}" alt="event" style="max-height: 300px; max-width: 300px; display: block; margin: 0 auto;"></a>
+                            <img th:if="${!event.image.startsWith('http')}" th:src="'/'+${event.getImage()}" alt="event" style="max-height: 300px; display: block; margin: 0 auto;"></a>
                         </div>
                         <div class="event-content text-left">
                             <h3 th:text="${#temporals.format(event.getStartTime(), 'dd MMMM yyyy')}">20 June 2017</h3>
@@ -133,6 +129,7 @@
                         </div>
                     </div>
                 </div>
+
             </div>
 
         </div>

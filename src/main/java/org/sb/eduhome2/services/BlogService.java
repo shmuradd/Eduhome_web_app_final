@@ -6,11 +6,13 @@ import org.sb.eduhome2.dtos.blogs.BlogDto;
 import org.sb.eduhome2.dtos.blogs.BlogUpdateDto;
 import org.sb.eduhome2.dtos.course.CourseDetailDto;
 import org.sb.eduhome2.dtos.course.CourseDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.util.List;
 
 public interface BlogService {
-    List<BlogDto> getBlogs();
+    public Page<BlogDto> getBlogs(PageRequest pageRequest);
 
     List<BlogDto> getHomeBlogs();
 
@@ -25,4 +27,6 @@ public interface BlogService {
     void deleteBlog(int blogId);
 
     void toggleBlogActivity(int blogId);
+
+
 }

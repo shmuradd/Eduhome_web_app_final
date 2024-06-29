@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -24,6 +25,9 @@ public class Course {
 
     private String description;
     private String image;
+
+    private String imageFile;
+
     @Column(nullable = false)
     private boolean isDeleted=false;
     @Column(length = 10000)

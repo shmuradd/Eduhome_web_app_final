@@ -137,7 +137,9 @@
                                                     <!-- Check if the image URL starts with "http" indicating it's a web URL -->
                                                     <img class="course-image" th:if="${course.image.startsWith('http')}" th:src="${course.image}" alt="Course Image" style="width: 150px;height: 150px;"/>
                                                     <!-- Check if the image URL starts with "img/" indicating it's a local file path -->
-                                                    <img class="course-image" th:if="${!course.image.startsWith('http')}" th:src="'/'+${course.image}" alt="Course Image" style="width: 150px;height: 150px;"/>
+                                                    <img class="course-image" th:if="${course.image.startsWith('img')}" th:src="'/'+${course.image}" alt="Course Image" style="width: 150px;height: 150px;"/>
+                                                    <img class="course-image" th:if="${course.image.startsWith('/img')}" th:src="${course.image}" alt="Course Image" style="width: 150px;height: 150px;"/>
+
                                                 </td>
                                                 <td th:text="${course.applyDescription}"></td>
                                                 <td th:text="${course.certificationDescription}"></td>

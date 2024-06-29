@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{dashboard/fragments/layout}">
+<html lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{dashboard/fragments/layout}">
 
 <head>
     <!-- Required meta tags -->
@@ -15,31 +13,35 @@
 <body>
 <main layout:fragment="MainContent">
     <div class="container col-6 m-auto">
-        <form method="post">
+        <form th:action="@{/register}" method="post" id="joinForm" onsubmit="return validateForm()">
             <div class="form-group">
                 <label for="exampleInputEmail1">Email address</label>
-                <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                <input type="email" th:name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
 
             <div class="form-group">
                 <label for="exampleInputUserName">Name</label>
-                <input type="text" class="form-control" id="exampleInputUserName" name="firstName" placeholder="Enter name">
+                <input type="text" class="form-control" id="exampleInputUserName" th:name="firstName" placeholder="Enter name">
             </div>
 
             <div class="form-group">
-                <label for="exampleInputUserSurname">Name</label>
-                <input type="text" class="form-control" id="exampleInputUserSurname" name="lastName" placeholder="Enter surname">
+                <label for="exampleInputUserSurname">Surname</label>
+                <input type="text" class="form-control" id="exampleInputUserSurname" th:name="lastName" placeholder="Enter surname">
             </div>
+
             <div class="form-group">
                 <label for="exampleInputPassword1">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1" name="password"  placeholder="Password">
+                <input type="password" class="form-control" id="exampleInputPassword1" th:name="password" placeholder="Password">
+                <div id="passwordLengthError" style="color: red; display: none;">Password must be at least 8 characters long.</div>
             </div>
 
             <div class="form-group">
-                <label for="exampleInputPassword2">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword2" name="passwordRepeat"  placeholder="Password">
+                <label for="exampleInputPassword2">Repeat Password</label>
+                <input type="password" class="form-control" id="exampleInputPassword2" th:name="passwordRepeat" placeholder="Password">
+                <div id="passwordError" style="color: red; display: none;">Passwords do not match.</div>
             </div>
+
             <div class="form-check">
                 <input type="checkbox" class="form-check-input" id="exampleCheck1">
                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
@@ -50,7 +52,35 @@
     <!-- container-scroller -->
     <!-- plugins:js -->
 
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        function validateForm() {
+            var password1 = document.getElementById("exampleInputPassword1").value;
+            var password2 = document.getElementById("exampleInputPassword2").value;
+
+            // Check password length
+            if (password1.length < 8) {
+                document.getElementById("passwordLengthError").style.display = "block";
+                return false;
+            } else {
+                document.getElementById("passwordLengthError").style.display = "none";
+            }
+
+            // Check password match
+            if (password1 !== password2) {
+                document.getElementById("passwordError").style.display = "block";
+                return false;
+            } else {
+                document.getElementById("passwordError").style.display = "none";
+            }
+
+            return true;
+        }
+        /*]]>*/
+    </script>
+
 </main>
+<!-- JavaScript -->
 
 </body>
 

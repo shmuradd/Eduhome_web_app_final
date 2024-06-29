@@ -1,5 +1,6 @@
 package org.sb.eduhome2.controllers;
 
+import org.sb.eduhome2.dtos.blogs.BlogCreateDto;
 import org.sb.eduhome2.dtos.blogs.BlogDto;
 import org.sb.eduhome2.dtos.course.CourseDetailDto;
 import org.sb.eduhome2.dtos.course.CourseDto;
@@ -11,11 +12,16 @@ import org.sb.eduhome2.repositories.CourseRepository;
 import org.sb.eduhome2.services.BlogService;
 import org.sb.eduhome2.services.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
@@ -30,10 +36,22 @@ public class CoursesController {
     private CourseRepository courseRepository;
 
     @GetMapping("/courses")
-    public String index(Model model)
+    public String index(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "6") int size)
     {
-        List<CourseDto> courses= courseService.getCourses();
-        model.addAttribute("courses", courses);
+        Page<CourseDto> coursesPage= courseService.getCourses(PageRequest.of(page,size));
+
+        if (coursesPage.hasContent())
+        {
+            model.addAttribute("courses", coursesPage.getContent());
+
+        }
+        else {
+            model.addAttribute("courses", Collections.emptyList());
+
+        }
+        model.addAttribute("coursesPage", coursesPage);
+
+
         return "course/courses";
     }
 
@@ -64,14 +82,39 @@ public class CoursesController {
         return "dashboard/course/course-create";
     }
 
-    @PostMapping("/admin/courses/create")
-    public String courseCreate(@ModelAttribute CourseCreateDto courseCreateDto,
-                                @RequestParam(value = "imageUrl", required = false) String imageUrl) throws IOException
-    {
-        courseCreateDto.setImage(imageUrl);
+
+    @PostMapping("admin/courses/create")
+    public String blogCreate(@ModelAttribute CourseCreateDto courseCreateDto,
+                             @RequestParam(value = "imageUrl", required = false) String imageUrl,
+                             @RequestParam(value = "imageFile", required = false) MultipartFile imageFile) throws IOException {
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            // If imageUrl is provided, assume it's already in the desired format
+            courseCreateDto.setImage(imageUrl);
+        } else if (imageFile != null && !imageFile.isEmpty()) {
+            // If imageFile is uploaded, save it and set the image path accordingly
+            String fileName = saveImageFile(imageFile);
+            // Convert the saved full path to the desired format
+            String imagePath = convertToRelativePath(fileName);
+            courseCreateDto.setImage(imagePath);
+        }
         courseService.addCourse(courseCreateDto);
         return "redirect:/admin/courses";
     }
+
+    private String saveImageFile(MultipartFile imageFile) throws IOException {
+        String fileName = "C:\\Users\\User\\OneDrive - Baku Higher Oil School\\Desktop\\Eduhome2.2\\src\\main\\resources\\static\\img\\course\\" + imageFile.getOriginalFilename();
+        File file = new File(fileName);
+        file.getParentFile().mkdirs();
+        imageFile.transferTo(file);
+        return fileName;
+    }
+
+    private String convertToRelativePath(String fullPath) {
+        // Convert the full path to a relative path
+        String relativePath = fullPath.replace("C:\\Users\\User\\OneDrive - Baku Higher Oil School\\Desktop\\Eduhome2.2\\src\\main\\resources\\static\\", "/");
+        return relativePath.replace("\\", "/");
+    }
+
 
     @GetMapping("/admin/courses/update/{id}")
     public String courseUpdate(@PathVariable int id, Model model) {

@@ -5,15 +5,21 @@ import org.sb.eduhome2.dtos.blogs.BlogDetailDto;
 import org.sb.eduhome2.dtos.blogs.BlogDto;
 import org.sb.eduhome2.dtos.blogs.BlogUpdateDto;
 import org.sb.eduhome2.dtos.course.CourseDetailDto;
+import org.sb.eduhome2.dtos.event.EventDto;
 import org.sb.eduhome2.models.Blog;
 import org.sb.eduhome2.repositories.BlogRepository;
 import org.sb.eduhome2.services.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -24,10 +30,22 @@ public class BlogsController {
     @Autowired
     private BlogRepository blogRepository;
     @GetMapping("/blogs")
-    public String index(Model model)
+    public String index(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "6") int size)
     {
-        List<BlogDto> blogs = blogService.getBlogs();
-        model.addAttribute("blogs", blogs);
+        Page<BlogDto> blogsPage= blogService.getBlogs(PageRequest.of(page,size));
+
+        if (blogsPage.hasContent())
+        {
+            model.addAttribute("blogs", blogsPage.getContent());
+
+        }
+        else {
+            model.addAttribute("blogs", Collections.emptyList());
+
+        }
+        model.addAttribute("blogsPage", blogsPage);
+
+
         return "blog/blogs";
     }
 
@@ -56,13 +74,39 @@ public class BlogsController {
         return "dashboard/blog/blog-create";
     }
 
-    @PostMapping("/admin/blogs/create")
+    @PostMapping("admin/blogs/create")
     public String blogCreate(@ModelAttribute BlogCreateDto blogCreateDto,
-                             @RequestParam(value = "imageUrl", required = false) String imageUrl) throws IOException {
-        blogCreateDto.setImage(imageUrl);
+                             @RequestParam(value = "imageUrl", required = false) String imageUrl,
+                             @RequestParam(value = "imageFile", required = false) MultipartFile imageFile) throws IOException {
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            // If imageUrl is provided, assume it's already in the desired format
+            blogCreateDto.setImage(imageUrl);
+        } else if (imageFile != null && !imageFile.isEmpty()) {
+            // If imageFile is uploaded, save it and set the image path accordingly
+            String fileName = saveImageFile(imageFile);
+            // Convert the saved full path to the desired format
+            String imagePath = convertToRelativePath(fileName);
+            blogCreateDto.setImage(imagePath);
+        }
         blogService.addBlog(blogCreateDto);
         return "redirect:/admin/blogs";
     }
+
+    private String saveImageFile(MultipartFile imageFile) throws IOException {
+        String fileName = "C:\\Users\\User\\OneDrive - Baku Higher Oil School\\Desktop\\Eduhome2.2\\src\\main\\resources\\static\\img\\blog\\" + imageFile.getOriginalFilename();
+        File file = new File(fileName);
+        file.getParentFile().mkdirs();
+        imageFile.transferTo(file);
+        return fileName;
+    }
+
+    private String convertToRelativePath(String fullPath) {
+        // Convert the full path to a relative path
+        String relativePath = fullPath.replace("C:\\Users\\User\\OneDrive - Baku Higher Oil School\\Desktop\\Eduhome2.2\\src\\main\\resources\\static\\", "/");
+        return relativePath.replace("\\", "/");
+    }
+
+
 
     @GetMapping("/admin/blogs/update/{id}")
     public String blogUpdate(@PathVariable int id, Model model) {

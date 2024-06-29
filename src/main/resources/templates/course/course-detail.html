@@ -4,6 +4,69 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init({
+                publicKey: "LAMM7X72x6XZWNe_0",
+            });
+        })();
+
+        function sendMail() {
+            let parms = {
+                name: document.getElementById("name").value,
+                email: document.getElementById("email").value,
+                subject: document.getElementById("subject").value,
+                message: document.getElementById("message").value,
+            };
+
+            // Send email using emailjs
+            emailjs.send("service_wwpzjlk", "template_ncqqkdo", parms)
+                .then(function(response) {
+                    alert("Email Sent!");
+                    saveMessage(parms); // Save message to database after email is sent
+                }, function(error) {
+                    alert("Failed to send email: " + JSON.stringify(error));
+                });
+        }
+
+        function saveMessage(message) {
+            const params = new URLSearchParams(message).toString();
+            fetch('/messages', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: params
+            })
+                .then(response => response.text())
+                .then(data => {
+                    console.log(data);
+                    document.querySelector(".form-message").textContent = "Message saved and email sent successfully!";
+                    document.getElementById("contact-form").reset();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.querySelector(".form-message").textContent = "Error saving message.";
+                });
+        }
+
+        function sendEmailReply(recipientEmail, reply) {
+            let replyParams = {
+                name: recipientEmail, // You can customize the recipient's name or use their email
+                email: recipientEmail,
+                message: reply
+            };
+
+            // Send email reply using emailjs
+            emailjs.send("service_wwpzjlk", "template_ncqqkdo", replyParams)
+                .then(function(response) {
+                    console.log("Email reply sent!");
+                }, function(error) {
+                    console.error("Failed to send email reply: " + JSON.stringify(error));
+                });
+        }
+    </script>
+
 </head>
 <body>
 <main layout:fragment="MainContent">
@@ -72,34 +135,13 @@
                             </div>
 
                         </div>
-                        <div th:insert="~{fragments/reply.html}"></div>
+                        <div th:insert="~{fragments/contactMessage.html}"></div>
 
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="blog-sidebar right">
-                        <div class="single-blog-widget mb-50">
-                            <h3>search</h3>
-                            <div class="blog-search">
-                                <form id="search" action="#">
-                                    <input type="search" placeholder="Search..." name="search" />
-                                    <button type="submit">
-                                        <span><i class="fa fa-search"></i></span>
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="single-blog-widget mb-50">
-                            <h3>categories</h3>
-                            <ul>
-                                <li><a href="#">CSS Engineering (10)</a></li>
-                                <li><a href="#">Political Science (12)</a></li>
-                                <li><a href="#">Micro Biology (08)</a></li>
-                                <li><a href="#">HTML5 &amp; CSS3 (15)</a></li>
-                                <li><a href="#">Web Design (20)</a></li>
-                                <li><a href="#">PHP (23)</a></li>
-                            </ul>
-                        </div>
+
                         <div class="single-blog-widget mb-50">
                             <div class="single-blog-banner">
                                 <a href="blog-details.html" id="blog"><img

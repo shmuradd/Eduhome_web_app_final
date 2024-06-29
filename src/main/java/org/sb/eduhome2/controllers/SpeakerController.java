@@ -36,7 +36,6 @@ public class SpeakerController {
     @PostMapping("/create")
     public String speakerCreate(@ModelAttribute SpeakerCreateDto speakerCreateDto,
                                 @RequestParam(value = "photoUrl", required = false) String photoUrl) throws IOException {
-        speakerCreateDto.setImage(photoUrl);
         speakerService.addSpeaker(speakerCreateDto);
         return "redirect:/admin/speakers";
     }

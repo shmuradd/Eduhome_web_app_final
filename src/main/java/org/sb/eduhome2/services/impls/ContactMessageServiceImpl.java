@@ -49,9 +49,8 @@ public class ContactMessageServiceImpl implements ContactMessageService {
 
     @Override
     public List<ContactMessage> getAllMessages() {
-        return messageRepository.findAll();
+        return messageRepository.findByOrderByRepliedAscIdAsc();
     }
-
     @Override
     public ContactMessage replyToMessage(Long id, String reply) {
         ContactMessage message = messageRepository.findById(id).orElseThrow();

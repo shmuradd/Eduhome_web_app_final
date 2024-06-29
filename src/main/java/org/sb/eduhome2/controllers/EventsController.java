@@ -16,12 +16,15 @@ import org.sb.eduhome2.services.CourseService;
 import org.sb.eduhome2.services.EventService;
 import org.sb.eduhome2.services.SpeakerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 @Controller
@@ -40,10 +43,25 @@ public class EventsController {
 
     @Autowired
     private SpeakerRepository speakerRepository;
+
+
     @GetMapping("/events")
-    public String index(Model model){
-    List<EventDto> events= eventService.getEvents();
-        model.addAttribute("events", events);
+    public String index(Model model, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "6") int size)
+    {
+        Page<EventDto> eventsPage= eventService.getEvents(PageRequest.of(page,size));
+
+        if (eventsPage.hasContent())
+        {
+            model.addAttribute("events", eventsPage.getContent());
+
+        }
+        else {
+            model.addAttribute("events", Collections.emptyList());
+
+        }
+        model.addAttribute("eventsPage", eventsPage);
+
+
         return "event/events";
     }
 
@@ -83,7 +101,6 @@ public class EventsController {
     @PostMapping("/admin/events/create")
     public String eventCreate(@ModelAttribute EventCreateDto eventCreateDto,
                               @RequestParam(value = "imageUrl", required = false) String imageUrl) throws IOException {
-        eventCreateDto.setImage(imageUrl);
         eventService.addEvent(eventCreateDto);
         return "redirect:/admin/events";
     }
